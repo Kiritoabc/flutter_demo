@@ -65,18 +65,22 @@ class _MyLayoutState extends State<MyLayout> {
         children: [
           Stack(
             children: [
-              const TextField(
-                decoration: InputDecoration(
-                  prefixIcon: Icon(Icons.search),
+              TextField(
+                controller: _searchController,
+                decoration: const InputDecoration(
+                  contentPadding: EdgeInsets.only(left: 20),
                   hintText: '请输入搜索关键词',
                 ),
               ),
               Positioned(
-                right: 10,
+                right: 4,
                 bottom: 4,
                 child: ElevatedButton(
                   onPressed: () {
                     // 在这里处理搜索逻辑
+                    String searchKeyword = _searchController.text;
+                    // 在这里处理搜索逻辑，使用searchKeyword作为搜索关键词
+                    print('搜索关键词： ${searchKeyword}');
                   },
                   child: const Text('搜索'),
                 ),
