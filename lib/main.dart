@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
         // Define the default brightness and colors.
-        brightness: Brightness.dark,
+        brightness: Brightness.light,
         primaryColor: Colors.amber,
         // Define the default font family.
         fontFamily: 'Georgia',

@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:my_app_1/home/home.dart';
 import 'package:my_app_1/user/user.dart';
@@ -18,8 +17,6 @@ class MyLayout extends StatefulWidget{
 ///  自己定义的布局
 class _MyLayoutState extends State<MyLayout> {
   int _selectedIndex = 0;
-
-  final TextEditingController _searchController = TextEditingController();
 
   void _onItemTapped(int index) {
     setState(() {
@@ -56,42 +53,11 @@ class _MyLayoutState extends State<MyLayout> {
           IconButton(
             icon: const Icon(Icons.search),
             onPressed: () {
-              print('搜索关键词： ${_searchController.text}');
             },
           )
         ],
       ),
-      body:Column(
-        children: [
-          Stack(
-            children: [
-              TextField(
-                controller: _searchController,
-                decoration: const InputDecoration(
-                  contentPadding: EdgeInsets.only(left: 20),
-                  hintText: '请输入搜索关键词',
-                ),
-              ),
-              Positioned(
-                right: 4,
-                bottom: 4,
-                child: ElevatedButton(
-                  onPressed: () {
-                    // 在这里处理搜索逻辑
-                    String searchKeyword = _searchController.text;
-                    // 在这里处理搜索逻辑，使用searchKeyword作为搜索关键词
-                    print('搜索关键词： ${searchKeyword}');
-                  },
-                  child: const Text('搜索'),
-                ),
-              )
-            ],
-          ),
-          Expanded(
-            child: _bottomNavPages[_selectedIndex],
-          ),
-        ],
-      ),
+      body:  _bottomNavPages[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem> [
           BottomNavigationBarItem(icon: Icon(Icons.home),label: "首页"),

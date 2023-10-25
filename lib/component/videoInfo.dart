@@ -23,9 +23,20 @@ class VideoInfo extends StatelessWidget {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(videoTitle, style: TextStyle(fontSize: 16)),
-            Text('共 $videoCount 集', style: TextStyle(fontSize: 14)),
-            Text(videoContent,style: TextStyle(fontSize: 14),)
+            Text(
+              '主题: $videoTitle',
+              style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+            ),
+            SizedBox(height: 5),
+            Text(
+              '共 $videoCount 集',
+              style: TextStyle(fontSize: 8),
+            ),
+            SizedBox(height: 5),
+            Text(
+              '描述:$videoContent',
+              style: TextStyle(fontSize: 12),
+            ),
           ],
         ),
       ],
