@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:dio/dio.dart';
 
 class PageUser extends StatefulWidget {
   const PageUser({super.key, required this.title});
@@ -18,6 +19,15 @@ class _PageUserState extends State<PageUser> {
   String _phoneNumber = '';
   String _email = '';
   String _nickname = '';
+
+  final dio = Dio();
+
+  // 测试请求
+  void healthTest() async {
+    Response response ;
+    response = await dio.get("http://192.168.0.116:8080/test");
+    print(response);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -98,7 +108,10 @@ class _PageUserState extends State<PageUser> {
               child: Opacity(
                 opacity: 0.8,
                 child: ElevatedButton(
-                  onPressed: () async {},
+                  onPressed: () async {
+                    // todo: 测试一哈
+                    healthTest();
+                  },
                   child: Text('提交'),
                 ),
               ),

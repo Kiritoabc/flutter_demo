@@ -1,6 +1,5 @@
-
-
 import 'package:flutter/cupertino.dart';
+import 'package:my_app_1/component/videoPlayer.dart';
 
 class PageAmusement extends StatefulWidget{
   const PageAmusement({super.key, required this.title});
@@ -16,7 +15,7 @@ class PageAmusement extends StatefulWidget{
 class _PageAmusementState extends State<PageAmusement> {
   @override
   Widget build(BuildContext context) {
-    return Text("娱乐");
+    return VideoPlayerScreen();
   }
 
 }
