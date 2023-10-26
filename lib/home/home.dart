@@ -63,33 +63,18 @@ class _PageHomeState extends State<PageHome> {
             child: ListView.builder(
                 itemCount: videoInfos.length,
                 itemBuilder: (context,index) {
-                  return
-                    SizedBox(
-                        width: 800, height: 110,
+                  return SizedBox(
+                        width: 800, height: 120,
+
                         child: InkWell(onTap: () {
                           // 在这里添加你的点击事件处理逻辑
                           print('视频信息 $index 被点击');
                         },
-                            child: videoInfos[index]));
+                        child: videoInfos[index]));
                 }
             ),
           ),
           ],
     );
-    
-    
-    // ListView.builder(
-    //   itemCount: videoInfos.length,
-    //   itemBuilder: (context,index) {
-    //     return
-    //     SizedBox(
-    //       width: 800, height: 110,
-    //         child: InkWell(onTap: () {
-    //               // 在这里添加你的点击事件处理逻辑
-    //               print('视频信息 $index 被点击');
-    //             },
-    //         child: videoInfos[index]));
-    //   }
-    // );
   }
 }
