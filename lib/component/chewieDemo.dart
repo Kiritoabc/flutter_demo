@@ -1,9 +1,7 @@
-import 'dart:io';
 
 import 'package:chewie/chewie.dart';
 import 'package:my_app_1/theme.dart';
 import 'package:flutter/material.dart';
-// ignore: depend_on_referenced_packages
 import 'package:video_player/video_player.dart';
 
 class ChewieDemo extends StatefulWidget {
@@ -26,6 +24,7 @@ class _ChewieDemoState extends State<ChewieDemo> {
   late VideoPlayerController _videoPlayerController2;
   ChewieController? _chewieController;
   int? bufferDelay;
+
 
   @override
   void initState() {
@@ -61,20 +60,6 @@ class _ChewieDemoState extends State<ChewieDemo> {
   }
 
   void _createChewieController() {
-    // final subtitles = [
-    //     Subtitle(
-    //       index: 0,
-    //       start: Duration.zero,
-    //       end: const Duration(seconds: 10),
-    //       text: 'Hello from subtitles',
-    //     ),
-    //     Subtitle(
-    //       index: 0,
-    //       start: const Duration(seconds: 10),
-    //       end: const Duration(seconds: 20),
-    //       text: 'Whats up? :)',
-    //     ),
-    //   ];
 
     final subtitles = [
       Subtitle(
@@ -141,19 +126,7 @@ class _ChewieDemoState extends State<ChewieDemo> {
 
       hideControlsTimer: const Duration(seconds: 1),
 
-      // Try playing around with some of these other options:
 
-      // showControls: false,
-      // materialProgressColors: ChewieProgressColors(
-      //   playedColor: Colors.red,
-      //   handleColor: Colors.blue,
-      //   backgroundColor: Colors.grey,
-      //   bufferedColor: Colors.lightGreen,
-      // ),
-      // placeholder: Container(
-      //   color: Colors.grey,
-      // ),
-      // autoInitialize: true,
     );
   }
 
@@ -168,20 +141,104 @@ class _ChewieDemoState extends State<ChewieDemo> {
     await initializePlayer();
   }
 
+
+  // 集数展示
+  // lib/res/listData.dart
+
+  List listData = [
+    {
+      "title": 'Candy Shop',
+      "author": 'Mohamed Chahin',
+      "imageUrl": 'https://www.itying.com/images/flutter/1.png',
+    },
+    {
+      "title": 'Childhood',
+      "author": 'Google',
+      "imageUrl": 'https://www.itying.com/images/flutter/2.png',
+    },
+    {
+      "title": 'Alibaba Shop',
+      "author": 'Alibaba',
+      "imageUrl": 'https://www.itying.com/images/flutter/3.png',
+    },
+    {
+      "title": 'Candy Shop',
+      "author": 'Mohamed Chahin',
+      "imageUrl": 'https://www.itying.com/images/flutter/4.png',
+    },
+    {
+      "title": 'Tornado',
+      "author": 'Mohamed Chahin',
+      "imageUrl": 'https://www.itying.com/images/flutter/5.png',
+    },
+    {
+      "title": 'Undo',
+      "author": 'Mohamed Chahin',
+      "imageUrl": 'https://www.itying.com/images/flutter/6.png',
+    },
+    {
+      "title": 'white-dragon',
+      "author": 'Mohamed Chahin',
+      "imageUrl": 'https://www.itying.com/images/flutter/7.png',
+    }
+  ];
+  Widget _getListData(context,index){
+    return Container(
+      // 子元素
+      child:Column(
+        // 子元素
+        children: <Widget>[
+          // 图片
+          Image.network(
+              listData[index]['imageUrl'],
+              fit: BoxFit.cover,
+          ),
+          // 图片与文字的间隔使用
+          SizedBox(height:10),
+          // 文字
+          Text(
+              listData[index]['title'],
+              textAlign:TextAlign.center,
+              style:TextStyle(fontSize: 18)
+          ),
+        ],
+      ),
+      // 装饰
+      decoration: BoxDecoration(
+        // 边框
+          border:Border.all(
+            // 颜色
+              color:Color.fromRGBO(233, 233, 233, 0.8),
+              // 边框宽度
+              width:1.0
+          )
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: widget.title,
-      theme: AppTheme.light.copyWith(
+      theme: AppTheme.dark.copyWith(
         platform: _platform ?? Theme.of(context).platform,
       ),
       home: Scaffold(
         appBar: AppBar(
-          title: Text(widget.title),
+          leading: IconButton(
+            //这是图标长按会出现的提示信息，返回按钮这么常用，应该不需要吧
+            //tooltip: '返回上一页',
+            icon: const Icon(Icons.arrow_back),
+            onPressed: () {
+              Navigator.of(context).pop();
+              //_nextPage(-1);
+            },
+          ),
         ),
         body: Column(
           children: <Widget>[
             Expanded(
+              flex: 1,
               child: Center(
                 child: _chewieController != null &&
                     _chewieController!
@@ -193,138 +250,30 @@ class _ChewieDemoState extends State<ChewieDemo> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     CircularProgressIndicator(),
-                    SizedBox(height: 20),
+                    SizedBox(height: 10),
                     Text('Loading'),
                   ],
                 ),
               ),
             ),
-            TextButton(
-              onPressed: () {
-                _chewieController?.enterFullScreen();
-              },
-              child: const Text('Fullscreen'),
-            ),
-            Row(
-              children: <Widget>[
-                Expanded(
-                  child: TextButton(
-                    onPressed: () {
-                      setState(() {
-                        _videoPlayerController1.pause();
-                        _videoPlayerController1.seekTo(Duration.zero);
-                        _createChewieController();
-                      });
-                    },
-                    child: const Padding(
-                      padding: EdgeInsets.symmetric(vertical: 16.0),
-                      child: Text("Landscape Video"),
-                    ),
+            SizedBox(
+              height: 200, // 根据需要设置高度
+              child: GridView.builder(
+                // 定义网格相关样式
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    // 定义列
+                    crossAxisCount: 2,
+                    // 横向间隙
+                    mainAxisSpacing: 10.0,
+                    // 纵向间隙
+                    crossAxisSpacing: 10.0,
                   ),
-                ),
-                Expanded(
-                  child: TextButton(
-                    onPressed: () {
-                      setState(() {
-                        _videoPlayerController2.pause();
-                        _videoPlayerController2.seekTo(Duration.zero);
-                        _chewieController = _chewieController!.copyWith(
-                          videoPlayerController: _videoPlayerController2,
-                          autoPlay: true,
-                          looping: true,
-                          /* subtitle: Subtitles([
-                            Subtitle(
-                              index: 0,
-                              start: Duration.zero,
-                              end: const Duration(seconds: 10),
-                              text: 'Hello from subtitles',
-                            ),
-                            Subtitle(
-                              index: 0,
-                              start: const Duration(seconds: 10),
-                              end: const Duration(seconds: 20),
-                              text: 'Whats up? :)',
-                            ),
-                          ]),
-                          subtitleBuilder: (context, subtitle) => Container(
-                            padding: const EdgeInsets.all(10.0),
-                            child: Text(
-                              subtitle,
-                              style: const TextStyle(color: Colors.white),
-                            ),
-                          ), */
-                        );
-                      });
-                    },
-                    child: const Padding(
-                      padding: EdgeInsets.symmetric(vertical: 16.0),
-                      child: Text("Portrait Video"),
-                    ),
-                  ),
-                )
-              ],
+                  // 数据数量
+                  itemCount: listData.length,
+                  // 所有数据
+                  itemBuilder: _getListData
+              ),
             ),
-            // Row(
-            //   children: <Widget>[
-            //     Expanded(
-            //       child: TextButton(
-            //         onPressed: () {
-            //           setState(() {
-            //             _platform = TargetPlatform.android;
-            //           });
-            //         },
-            //         child: const Padding(
-            //           padding: EdgeInsets.symmetric(vertical: 16.0),
-            //           child: Text("Android controls"),
-            //         ),
-            //       ),
-            //     ),
-            //     Expanded(
-            //       child: TextButton(
-            //         onPressed: () {
-            //           setState(() {
-            //             _platform = TargetPlatform.iOS;
-            //           });
-            //         },
-            //         child: const Padding(
-            //           padding: EdgeInsets.symmetric(vertical: 16.0),
-            //           child: Text("iOS controls"),
-            //         ),
-            //       ),
-            //     )
-            //   ],
-            // ),
-            // Row(
-            //   children: <Widget>[
-            //     Expanded(
-            //       child: TextButton(
-            //         onPressed: () {
-            //           setState(() {
-            //             _platform = TargetPlatform.windows;
-            //           });
-            //         },
-            //         child: const Padding(
-            //           padding: EdgeInsets.symmetric(vertical: 16.0),
-            //           child: Text("Desktop controls"),
-            //         ),
-            //       ),
-            //     ),
-            //   ],
-            // ),
-            // if (Platform.isAndroid)
-            //   ListTile(
-            //     title: const Text("Delay"),
-            //     subtitle: DelaySlider(
-            //       delay:
-            //       _chewieController?.progressIndicatorDelay?.inMilliseconds,
-            //       onSave: (delay) async {
-            //         if (delay != null) {
-            //           bufferDelay = delay == 0 ? null : delay;
-            //           await initializePlayer();
-            //         }
-            //       },
-            //     ),
-            //   )
           ],
         ),
       ),

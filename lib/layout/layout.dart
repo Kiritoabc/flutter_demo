@@ -11,11 +11,11 @@ class MyLayout extends StatefulWidget{
   final String title;
   @override
   State<StatefulWidget> createState() => _MyLayoutState();
-
 }
-
 ///  自己定义的布局
+
 class _MyLayoutState extends State<MyLayout> {
+
   int _selectedIndex = 0;
 
   void _onItemTapped(int index) {

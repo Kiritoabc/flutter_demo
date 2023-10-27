@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:my_app_1/component/videoInfo.dart';
 
+import 'package:my_app_1/component/chewieDemo.dart';
+
 class PageHome extends StatefulWidget {
   const PageHome({super.key, required this.title});
 
@@ -19,6 +21,10 @@ class _PageHomeState extends State<PageHome> {
 
   @override
   Widget build(BuildContext context) {
+
+    // 跳转记录
+    final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+
     // 数据准备
     List<VideoInfo> videoInfos = [
       const VideoInfo(videoTitle: 'Video 1',
@@ -67,6 +73,10 @@ class _PageHomeState extends State<PageHome> {
                         width: 800, height: 120,
 
                         child: InkWell(onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => ChewieDemo()),
+                          );
                           // 在这里添加你的点击事件处理逻辑
                           print('视频信息 $index 被点击');
                         },
