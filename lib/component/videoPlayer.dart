@@ -1,3 +1,4 @@
+import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
@@ -10,87 +11,205 @@ class VideoPlayerScreen extends StatefulWidget {
 }
 
 class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
-  late VideoPlayerController _controller;
-  late Future<void> _initializeVideoPlayerFuture;
-  int _currentEpisode = 1; // 添加当前集数属性
+  TargetPlatform? _platform;
+  late VideoPlayerController _videoPlayerController1;
+  late VideoPlayerController _videoPlayerController2;
+  ChewieController? _chewieController;
+  int? bufferDelay;
+
 
   @override
   void initState() {
     super.initState();
-
-    _controller = VideoPlayerController.networkUrl(
-      Uri.parse(
-        'http://192.168.0.116:9001/test/1112023-09-26 14-08-23.mkv',
-      ),
-    );
-
-    _initializeVideoPlayerFuture = _controller.initialize();
-
-    _controller.setLooping(true);
-    // 设施全屏大小
+    initializePlayer();
   }
 
   @override
   void dispose() {
-    // Ensure disposing of the VideoPlayerController to free up resources.
-    _controller.dispose();
-
+    _videoPlayerController1.dispose();
+    _videoPlayerController2.dispose();
+    _chewieController?.dispose();
     super.dispose();
+  }
+
+  List<String> srcs = [
+    "http://192.168.0.116:9001/test/1112023-09-26 14-08-23.mkv",
+    "https://assets.mixkit.co/videos/preview/mixkit-daytime-city-traffic-aerial-view-56-large.mp4",
+    "https://assets.mixkit.co/videos/preview/mixkit-a-girl-blowing-a-bubble-gum-at-an-amusement-park-1226-large.mp4"
+  ];
+
+  Future<void> initializePlayer() async {
+    _videoPlayerController1 =
+        VideoPlayerController.networkUrl(Uri.parse(srcs[currPlayIndex]));
+    _videoPlayerController2 =
+        VideoPlayerController.networkUrl(Uri.parse(srcs[currPlayIndex]));
+    await Future.wait([
+      _videoPlayerController1.initialize(),
+      _videoPlayerController2.initialize()
+    ]);
+    _createChewieController();
+    setState(() {});
+  }
+
+  void _createChewieController() {
+
+    final subtitles = [
+      Subtitle(
+        index: 0,
+        start: Duration.zero,
+        end: const Duration(seconds: 10),
+        text: const TextSpan(
+          children: [
+            TextSpan(
+              text: '',
+              style: TextStyle(color: Colors.red, fontSize: 22),
+            ),
+            TextSpan(
+              text: '',
+              style: TextStyle(color: Colors.green, fontSize: 20),
+            ),
+            TextSpan(
+              text: '',
+              style: TextStyle(color: Colors.blue, fontSize: 18),
+            )
+          ],
+        ),
+      ),
+      Subtitle(
+        index: 0,
+        start: const Duration(seconds: 10),
+        end: const Duration(seconds: 20),
+        text: 'Whats up? :)',
+        // text: const TextSpan(
+        //   text: 'Whats up? :)',
+        //   style: TextStyle(color: Colors.amber, fontSize: 22, fontStyle: FontStyle.italic),
+        // ),
+      ),
+    ];
+
+    _chewieController = ChewieController(
+      videoPlayerController: _videoPlayerController1,
+      autoPlay: true,
+      looping: true,
+      progressIndicatorDelay:
+      bufferDelay != null ? Duration(milliseconds: bufferDelay!) : null,
+
+      additionalOptions: (context) {
+        return <OptionItem>[
+          OptionItem(
+            onTap: toggleVideo,
+            iconData: Icons.live_tv_sharp,
+            title: 'Toggle Video Src',
+          ),
+        ];
+      },
+      subtitle: Subtitles(subtitles),
+      subtitleBuilder: (context, dynamic subtitle) => Container(
+        padding: const EdgeInsets.all(10.0),
+        child: subtitle is InlineSpan
+            ? RichText(
+          text: subtitle,
+        )
+            : Text(
+          subtitle.toString(),
+          style: const TextStyle(color: Colors.black),
+        ),
+      ),
+
+      hideControlsTimer: const Duration(seconds: 1),
+
+
+    );
+  }
+
+  int currPlayIndex = 0;
+
+  Future<void> toggleVideo() async {
+    await _videoPlayerController1.pause();
+    currPlayIndex += 1;
+    if (currPlayIndex >= srcs.length) {
+      currPlayIndex = 0;
+    }
+    await initializePlayer();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Video Test'),
+        body: Column(
+          children: <Widget>[
+            Expanded(
+              flex: 1,
+              child: Center(
+                child: _chewieController != null &&
+                    _chewieController!
+                        .videoPlayerController.value.isInitialized
+                    ? Chewie(
+                  controller: _chewieController!,
+                )
+                    : const Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    CircularProgressIndicator(),
+                    SizedBox(height: 10),
+                    Text('Loading'),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      );
+  }
+}
+
+
+class DelaySlider extends StatefulWidget {
+  const DelaySlider({Key? key, required this.delay, required this.onSave})
+      : super(key: key);
+
+  final int? delay;
+  final void Function(int?) onSave;
+  @override
+  State<DelaySlider> createState() => _DelaySliderState();
+}
+
+class _DelaySliderState extends State<DelaySlider> {
+  int? delay;
+  bool saved = false;
+
+  @override
+  void initState() {
+    super.initState();
+    delay = widget.delay;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    const int max = 1000;
+    return ListTile(
+      title: Text(
+        "Progress indicator delay ${delay != null ? "${delay.toString()} MS" : ""}",
       ),
-      body: GestureDetector(
-        onTap: () {
+      subtitle: Slider(
+        value: delay != null ? (delay! / max) : 0,
+        onChanged: (value) async {
+          delay = (value * max).toInt();
           setState(() {
-            // 根据用户选择的集数进行播放
-            if (_currentEpisode < 5) { // 假设有5集视频
-              _controller.seekTo(Duration(seconds: _currentEpisode * 60)); // 假设每集时长为60秒
-              _currentEpisode++;
-            } else {
-              _controller.pause();
-            }
+            saved = false;
           });
         },
-        child: FutureBuilder(
-          future: _initializeVideoPlayerFuture,
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.done) {
-              return AspectRatio(
-                aspectRatio: _controller.value.aspectRatio,
-                // Use the VideoPlayer widget to display the video.
-                child: VideoPlayer(_controller),
-              );
-            } else {
-              // If the VideoPlayerController is still initializing, show a
-              // loading spinner.
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
-            }
-          },
-        ),
-      ) ,
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
+      ),
+      trailing: IconButton(
+        icon: const Icon(Icons.save),
+        onPressed: saved
+            ? null
+            : () {
+          widget.onSave(delay);
           setState(() {
-            // If the video is playing, pause it.
-            if (_controller.value.isPlaying) {
-              _controller.pause();
-            } else {
-              // If the video is paused, play it.
-              _controller.play();
-            }
+            saved = true;
           });
         },
-        // Display the correct icon depending on the state of the player.
-        child: Icon(
-          _controller.value.isPlaying ? Icons.pause : Icons.play_arrow,
-        ),
       ),
     );
   }

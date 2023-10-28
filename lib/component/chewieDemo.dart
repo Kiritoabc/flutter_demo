@@ -61,39 +61,39 @@ class _ChewieDemoState extends State<ChewieDemo> {
 
   void _createChewieController() {
 
-    final subtitles = [
-      Subtitle(
-        index: 0,
-        start: Duration.zero,
-        end: const Duration(seconds: 10),
-        text: const TextSpan(
-          children: [
-            TextSpan(
-              text: 'Hello',
-              style: TextStyle(color: Colors.red, fontSize: 22),
-            ),
-            TextSpan(
-              text: ' from ',
-              style: TextStyle(color: Colors.green, fontSize: 20),
-            ),
-            TextSpan(
-              text: 'subtitles',
-              style: TextStyle(color: Colors.blue, fontSize: 18),
-            )
-          ],
-        ),
-      ),
-      Subtitle(
-        index: 0,
-        start: const Duration(seconds: 10),
-        end: const Duration(seconds: 20),
-        text: 'Whats up? :)',
-        // text: const TextSpan(
-        //   text: 'Whats up? :)',
-        //   style: TextStyle(color: Colors.amber, fontSize: 22, fontStyle: FontStyle.italic),
-        // ),
-      ),
-    ];
+    // final subtitles = [
+    //   Subtitle(
+    //     index: 0,
+    //     start: Duration.zero,
+    //     end: const Duration(seconds: 10),
+    //     text: const TextSpan(
+    //       children: [
+    //         TextSpan(
+    //           text: '',
+    //           style: TextStyle(color: Colors.red, fontSize: 22),
+    //         ),
+    //         TextSpan(
+    //           text: '',
+    //           style: TextStyle(color: Colors.green, fontSize: 20),
+    //         ),
+    //         TextSpan(
+    //           text: '',
+    //           style: TextStyle(color: Colors.blue, fontSize: 18),
+    //         )
+    //       ],
+    //     ),
+    //   ),
+    //   Subtitle(
+    //     index: 0,
+    //     start: const Duration(seconds: 10),
+    //     end: const Duration(seconds: 20),
+    //     text: 'Whats up? :)',
+    //     // text: const TextSpan(
+    //     //   text: 'Whats up? :)',
+    //     //   style: TextStyle(color: Colors.amber, fontSize: 22, fontStyle: FontStyle.italic),
+    //     // ),
+    //   ),
+    // ];
 
     _chewieController = ChewieController(
       videoPlayerController: _videoPlayerController1,
@@ -111,7 +111,7 @@ class _ChewieDemoState extends State<ChewieDemo> {
           ),
         ];
       },
-      subtitle: Subtitles(subtitles),
+      // subtitle: Subtitles(subtitles),
       subtitleBuilder: (context, dynamic subtitle) => Container(
         padding: const EdgeInsets.all(10.0),
         child: subtitle is InlineSpan

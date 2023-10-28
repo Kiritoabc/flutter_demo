@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 // import 'package:my_app_1/component/videoPlayer.dart';
-import 'package:my_app_1/component/chewieDemo.dart';
+import 'package:my_app_1/component/videoList.dart';
 
 class PageAmusement extends StatefulWidget{
   const PageAmusement({super.key, required this.title});
@@ -16,7 +16,7 @@ class PageAmusement extends StatefulWidget{
 class _PageAmusementState extends State<PageAmusement> {
   @override
   Widget build(BuildContext context) {
-    return  const ChewieDemo();
+    return  const PageViewExampleApp();
   }
 
 }
