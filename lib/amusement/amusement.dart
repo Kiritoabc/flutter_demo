@@ -18,5 +18,4 @@ class _PageAmusementState extends State<PageAmusement> {
   Widget build(BuildContext context) {
     return  const PageViewExampleApp();
   }
-
 }

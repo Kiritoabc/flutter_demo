@@ -48,9 +48,9 @@ class _ChewieDemoState extends State<ChewieDemo> {
 
   Future<void> initializePlayer() async {
     _videoPlayerController1 =
-        VideoPlayerController.networkUrl(Uri.parse(srcs[currPlayIndex]));
+        VideoPlayerController.networkUrl(Uri.parse(listData[currPlayIndex]['videoUrl']));
     _videoPlayerController2 =
-        VideoPlayerController.networkUrl(Uri.parse(srcs[currPlayIndex]));
+        VideoPlayerController.networkUrl(Uri.parse(listData[currPlayIndex]['videoUrl']));
     await Future.wait([
       _videoPlayerController1.initialize(),
       _videoPlayerController2.initialize()
@@ -59,41 +59,15 @@ class _ChewieDemoState extends State<ChewieDemo> {
     setState(() {});
   }
 
-  void _createChewieController() {
+  // 修改集数函数
+  void _updateCurrPlayIndex(index ){
+    setState(() {
+      currPlayIndex = index;
+    });
+  }
 
-    // final subtitles = [
-    //   Subtitle(
-    //     index: 0,
-    //     start: Duration.zero,
-    //     end: const Duration(seconds: 10),
-    //     text: const TextSpan(
-    //       children: [
-    //         TextSpan(
-    //           text: '',
-    //           style: TextStyle(color: Colors.red, fontSize: 22),
-    //         ),
-    //         TextSpan(
-    //           text: '',
-    //           style: TextStyle(color: Colors.green, fontSize: 20),
-    //         ),
-    //         TextSpan(
-    //           text: '',
-    //           style: TextStyle(color: Colors.blue, fontSize: 18),
-    //         )
-    //       ],
-    //     ),
-    //   ),
-    //   Subtitle(
-    //     index: 0,
-    //     start: const Duration(seconds: 10),
-    //     end: const Duration(seconds: 20),
-    //     text: 'Whats up? :)',
-    //     // text: const TextSpan(
-    //     //   text: 'Whats up? :)',
-    //     //   style: TextStyle(color: Colors.amber, fontSize: 22, fontStyle: FontStyle.italic),
-    //     // ),
-    //   ),
-    // ];
+
+  void _createChewieController() {
 
     _chewieController = ChewieController(
       videoPlayerController: _videoPlayerController1,
@@ -144,42 +118,48 @@ class _ChewieDemoState extends State<ChewieDemo> {
 
   // 集数展示
   // lib/res/listData.dart
-
   List listData = [
     {
       "title": 'Candy Shop',
       "author": 'Mohamed Chahin',
       "imageUrl": 'https://www.itying.com/images/flutter/1.png',
+      "videoUrl":'http://192.168.0.116:9001/test/1112023-09-26 14-08-23.mkv',
     },
     {
       "title": 'Childhood',
       "author": 'Google',
       "imageUrl": 'https://www.itying.com/images/flutter/2.png',
+      "videoUrl":'https://assets.mixkit.co/videos/preview/mixkit-daytime-city-traffic-aerial-view-56-large.mp4',
     },
     {
       "title": 'Alibaba Shop',
       "author": 'Alibaba',
       "imageUrl": 'https://www.itying.com/images/flutter/3.png',
+      "videoUrl":'https://assets.mixkit.co/videos/preview/mixkit-a-girl-blowing-a-bubble-gum-at-an-amusement-park-1226-large.mp4',
     },
     {
       "title": 'Candy Shop',
       "author": 'Mohamed Chahin',
       "imageUrl": 'https://www.itying.com/images/flutter/4.png',
+      "videoUrl":'http://192.168.0.116:9001/test/1112023-09-26 14-08-23.mkv',
     },
     {
       "title": 'Tornado',
       "author": 'Mohamed Chahin',
       "imageUrl": 'https://www.itying.com/images/flutter/5.png',
+      "videoUrl":'https://assets.mixkit.co/videos/preview/mixkit-daytime-city-traffic-aerial-view-56-large.mp4',
     },
     {
       "title": 'Undo',
       "author": 'Mohamed Chahin',
       "imageUrl": 'https://www.itying.com/images/flutter/6.png',
+      "videoUrl":'https://assets.mixkit.co/videos/preview/mixkit-a-girl-blowing-a-bubble-gum-at-an-amusement-park-1226-large.mp4',
     },
     {
       "title": 'white-dragon',
       "author": 'Mohamed Chahin',
       "imageUrl": 'https://www.itying.com/images/flutter/7.png',
+      "videoUrl":'https://assets.mixkit.co/videos/preview/mixkit-a-girl-blowing-a-bubble-gum-at-an-amusement-park-1226-large.mp4',
     }
   ];
   Widget _getListData(context,index){
@@ -188,10 +168,22 @@ class _ChewieDemoState extends State<ChewieDemo> {
       child:Column(
         // 子元素
         children: <Widget>[
-          // 图片
-          Image.network(
+          Container(
+            child: Image.network(
               listData[index]['imageUrl'],
               fit: BoxFit.cover,
+            ),
+          ),
+          // 图片
+          InkWell(
+            child: Image.network(
+              listData[index]['imageUrl'],
+              fit: BoxFit.cover,
+            ),
+            onTap: (){
+              print("更换视频");
+              _updateCurrPlayIndex(index);
+            },
           ),
           // 图片与文字的间隔使用
           SizedBox(height:10),
