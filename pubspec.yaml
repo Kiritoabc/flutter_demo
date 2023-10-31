@@ -39,24 +39,18 @@ dependencies:
   video_player: ^2.7.2
   dio: ^5.3.3
 
+  # Bilibili开源的视频播放组件
+  fijkplayer: ^0.11.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  # The "flutter_lints" package below contains a set of recommended lints to
-  # encourage good coding practices. The lint set provided by the package is
-  # activated in the `analysis_options.yaml` file located at the root of your
-  # package. See that file for information about deactivating specific lint
-  # rules and activating additional ones.
   flutter_lints: ^2.0.0
-  # 加载动画库(好像改版之后就没用到了)
-#  flutter_spinkit: ^5.2.0
-#  # Bilibili开源的视频播放组件
-#  fijkplayer: ^0.11.0
-#  # 基础的透明动画点击效果
-#  tapped: any
-#  # map安全取值
-#  safemap: any
+
+  # Bilibili开源的视频播放组件
+  fijkplayer: ^0.11.0
+
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

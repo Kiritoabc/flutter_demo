@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'layout/layout.dart';
-
+import 'package:fijkplayer/fijkplayer.dart';
 void main() {
   runApp(const MyApp());
 }

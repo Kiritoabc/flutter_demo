@@ -40,10 +40,59 @@ class _ChewieDemoState extends State<ChewieDemo> {
     super.dispose();
   }
 
+  int currPlayIndex = 0;
+
   List<String> srcs = [
     "http://192.168.0.116:9001/test/1112023-09-26 14-08-23.mkv",
     "https://assets.mixkit.co/videos/preview/mixkit-daytime-city-traffic-aerial-view-56-large.mp4",
     "https://assets.mixkit.co/videos/preview/mixkit-a-girl-blowing-a-bubble-gum-at-an-amusement-park-1226-large.mp4"
+  ];
+
+  // 集数展示
+  // lib/res/listData.dart
+  List listData = [
+    {
+      "title": 'Candy Shop',
+      "author": 'Mohamed Chahin',
+      "imageUrl": 'https://www.itying.com/images/flutter/1.png',
+      "videoUrl":'https://assets.mixkit.co/videos/preview/mixkit-daytime-city-traffic-aerial-view-56-large.mp4',
+    },
+    {
+      "title": 'Childhood',
+      "author": 'Google',
+      "imageUrl": 'https://www.itying.com/images/flutter/2.png',
+      "videoUrl":'https://assets.mixkit.co/videos/preview/mixkit-daytime-city-traffic-aerial-view-56-large.mp4',
+    },
+    {
+      "title": 'Alibaba Shop',
+      "author": 'Alibaba',
+      "imageUrl": 'https://www.itying.com/images/flutter/3.png',
+      "videoUrl":'https://assets.mixkit.co/videos/preview/mixkit-a-girl-blowing-a-bubble-gum-at-an-amusement-park-1226-large.mp4',
+    },
+    {
+      "title": 'Candy Shop',
+      "author": 'Mohamed Chahin',
+      "imageUrl": 'https://www.itying.com/images/flutter/4.png',
+      "videoUrl":'http://192.168.0.116:9001/test/1112023-09-26 14-08-23.mkv',
+    },
+    {
+      "title": 'Tornado',
+      "author": 'Mohamed Chahin',
+      "imageUrl": 'https://www.itying.com/images/flutter/5.png',
+      "videoUrl":'https://assets.mixkit.co/videos/preview/mixkit-daytime-city-traffic-aerial-view-56-large.mp4',
+    },
+    {
+      "title": 'Undo',
+      "author": 'Mohamed Chahin',
+      "imageUrl": 'https://www.itying.com/images/flutter/6.png',
+      "videoUrl":'https://assets.mixkit.co/videos/preview/mixkit-a-girl-blowing-a-bubble-gum-at-an-amusement-park-1226-large.mp4',
+    },
+    {
+      "title": 'white-dragon',
+      "author": 'Mohamed Chahin',
+      "imageUrl": 'https://www.itying.com/images/flutter/7.png',
+      "videoUrl":'https://assets.mixkit.co/videos/preview/mixkit-a-girl-blowing-a-bubble-gum-at-an-amusement-park-1226-large.mp4',
+    }
   ];
 
   Future<void> initializePlayer() async {
@@ -63,6 +112,9 @@ class _ChewieDemoState extends State<ChewieDemo> {
   void _updateCurrPlayIndex(index ){
     setState(() {
       currPlayIndex = index;
+      print(listData[index]['videoUrl']);
+      _videoPlayerController1 =
+          VideoPlayerController.networkUrl(Uri.parse(listData[index]['videoUrl']));
     });
   }
 
@@ -104,7 +156,7 @@ class _ChewieDemoState extends State<ChewieDemo> {
     );
   }
 
-  int currPlayIndex = 0;
+
 
   Future<void> toggleVideo() async {
     await _videoPlayerController1.pause();
@@ -116,64 +168,13 @@ class _ChewieDemoState extends State<ChewieDemo> {
   }
 
 
-  // 集数展示
-  // lib/res/listData.dart
-  List listData = [
-    {
-      "title": 'Candy Shop',
-      "author": 'Mohamed Chahin',
-      "imageUrl": 'https://www.itying.com/images/flutter/1.png',
-      "videoUrl":'http://192.168.0.116:9001/test/1112023-09-26 14-08-23.mkv',
-    },
-    {
-      "title": 'Childhood',
-      "author": 'Google',
-      "imageUrl": 'https://www.itying.com/images/flutter/2.png',
-      "videoUrl":'https://assets.mixkit.co/videos/preview/mixkit-daytime-city-traffic-aerial-view-56-large.mp4',
-    },
-    {
-      "title": 'Alibaba Shop',
-      "author": 'Alibaba',
-      "imageUrl": 'https://www.itying.com/images/flutter/3.png',
-      "videoUrl":'https://assets.mixkit.co/videos/preview/mixkit-a-girl-blowing-a-bubble-gum-at-an-amusement-park-1226-large.mp4',
-    },
-    {
-      "title": 'Candy Shop',
-      "author": 'Mohamed Chahin',
-      "imageUrl": 'https://www.itying.com/images/flutter/4.png',
-      "videoUrl":'http://192.168.0.116:9001/test/1112023-09-26 14-08-23.mkv',
-    },
-    {
-      "title": 'Tornado',
-      "author": 'Mohamed Chahin',
-      "imageUrl": 'https://www.itying.com/images/flutter/5.png',
-      "videoUrl":'https://assets.mixkit.co/videos/preview/mixkit-daytime-city-traffic-aerial-view-56-large.mp4',
-    },
-    {
-      "title": 'Undo',
-      "author": 'Mohamed Chahin',
-      "imageUrl": 'https://www.itying.com/images/flutter/6.png',
-      "videoUrl":'https://assets.mixkit.co/videos/preview/mixkit-a-girl-blowing-a-bubble-gum-at-an-amusement-park-1226-large.mp4',
-    },
-    {
-      "title": 'white-dragon',
-      "author": 'Mohamed Chahin',
-      "imageUrl": 'https://www.itying.com/images/flutter/7.png',
-      "videoUrl":'https://assets.mixkit.co/videos/preview/mixkit-a-girl-blowing-a-bubble-gum-at-an-amusement-park-1226-large.mp4',
-    }
-  ];
+
   Widget _getListData(context,index){
     return Container(
       // 子元素
       child:Column(
         // 子元素
         children: <Widget>[
-          Container(
-            child: Image.network(
-              listData[index]['imageUrl'],
-              fit: BoxFit.cover,
-            ),
-          ),
           // 图片
           InkWell(
             child: Image.network(
