@@ -1,9 +1,9 @@
-
 import 'package:chewie/chewie.dart';
 import 'package:my_app_1/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
+// Chewie 的案例
 class ChewieDemo extends StatefulWidget {
   const ChewieDemo({
     Key? key,
@@ -18,13 +18,15 @@ class ChewieDemo extends StatefulWidget {
   }
 }
 
+
+
 class _ChewieDemoState extends State<ChewieDemo> {
   TargetPlatform? _platform;
   late VideoPlayerController _videoPlayerController1;
   late VideoPlayerController _videoPlayerController2;
   ChewieController? _chewieController;
   int? bufferDelay;
-
+  int currPlayIndex = 0; // 当前播放的index
 
   @override
   void initState() {
@@ -39,8 +41,6 @@ class _ChewieDemoState extends State<ChewieDemo> {
     _chewieController?.dispose();
     super.dispose();
   }
-
-  int currPlayIndex = 0;
 
   List<String> srcs = [
     "http://192.168.0.116:9001/test/1112023-09-26 14-08-23.mkv",
@@ -95,6 +95,7 @@ class _ChewieDemoState extends State<ChewieDemo> {
     }
   ];
 
+  // 初始化播放器
   Future<void> initializePlayer() async {
     _videoPlayerController1 =
         VideoPlayerController.networkUrl(Uri.parse(listData[currPlayIndex]['videoUrl']));
@@ -109,25 +110,24 @@ class _ChewieDemoState extends State<ChewieDemo> {
   }
 
   // 修改集数函数
-  void _updateCurrPlayIndex(index ){
+  Future<void> _updateCurrPlayIndex(index ) async{
     setState(() {
       currPlayIndex = index;
       print(listData[index]['videoUrl']);
-      _videoPlayerController1 =
-          VideoPlayerController.networkUrl(Uri.parse(listData[index]['videoUrl']));
     });
+    // 重新初始化播放器
+    await initializePlayer();
   }
 
 
+  // 创建 _chewieController实例
   void _createChewieController() {
-
     _chewieController = ChewieController(
       videoPlayerController: _videoPlayerController1,
       autoPlay: true,
       looping: true,
       progressIndicatorDelay:
       bufferDelay != null ? Duration(milliseconds: bufferDelay!) : null,
-
       additionalOptions: (context) {
         return <OptionItem>[
           OptionItem(
@@ -149,15 +149,12 @@ class _ChewieDemoState extends State<ChewieDemo> {
           style: const TextStyle(color: Colors.black),
         ),
       ),
-
       hideControlsTimer: const Duration(seconds: 1),
-
-
     );
   }
 
 
-
+  // 估计不需要了
   Future<void> toggleVideo() async {
     await _videoPlayerController1.pause();
     currPlayIndex += 1;
@@ -274,6 +271,7 @@ class _ChewieDemoState extends State<ChewieDemo> {
   }
 }
 
+// 滑动器
 class DelaySlider extends StatefulWidget {
   const DelaySlider({Key? key, required this.delay, required this.onSave})
       : super(key: key);

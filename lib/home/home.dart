@@ -71,7 +71,6 @@ class _PageHomeState extends State<PageHome> {
                 itemBuilder: (context,index) {
                   return SizedBox(
                         width: 800, height: 120,
-
                         child: InkWell(onTap: () {
                           Navigator.push(
                             context,

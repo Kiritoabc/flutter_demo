@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_app_1/component/video_screen.dart';
 import 'player_page.dart';
 import 'videoPlayer.dart';
 
@@ -24,9 +25,7 @@ class PageViewExample extends StatelessWidget {
       /// Use [Axis.vertical] to scroll vertically.
       controller: controller,
       children: <Widget>[
-        Center(
-          child: PlayerPage(),
-        ),
+        FijkPlayerExample(),
         Center(
           child: PlayerPage(),
         ),

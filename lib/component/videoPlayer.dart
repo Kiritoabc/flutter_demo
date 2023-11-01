@@ -33,7 +33,7 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
   }
 
   List<String> srcs = [
-    "http://192.168.128.1:9001/test/1112023-09-26 14-08-23.mkv",
+    "http://192.168.0.116:9001/test/1112023-09-26 14-08-23.mkv",
     "https://assets.mixkit.co/videos/preview/mixkit-daytime-city-traffic-aerial-view-56-large.mp4",
     "https://assets.mixkit.co/videos/preview/mixkit-a-girl-blowing-a-bubble-gum-at-an-amusement-park-1226-large.mp4"
   ];

@@ -41,6 +41,7 @@ dependencies:
 
   # Bilibili开源的视频播放组件
   fijkplayer: ^0.11.0
+#  fijkplayer_skin: ^2.2.8
 
 dev_dependencies:
   flutter_test:
