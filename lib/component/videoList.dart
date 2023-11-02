@@ -25,7 +25,9 @@ class PageViewExample extends StatelessWidget {
       /// Use [Axis.vertical] to scroll vertically.
       controller: controller,
       children: <Widget>[
-        FijkPlayerExample(),
+        Center(
+          child: PlayerPage(),
+        ),
         Center(
           child: PlayerPage(),
         ),

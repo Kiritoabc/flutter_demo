@@ -73,7 +73,7 @@ class _ChewieDemoState extends State<ChewieDemo> {
       "title": 'Candy Shop',
       "author": 'Mohamed Chahin',
       "imageUrl": 'https://www.itying.com/images/flutter/4.png',
-      "videoUrl":'http://192.168.0.116:9001/test/1112023-09-26 14-08-23.mkv',
+      "videoUrl":'http://172.29.64.1:9001/test/1112023-09-26 14-08-23.mkv',
     },
     {
       "title": 'Tornado',
