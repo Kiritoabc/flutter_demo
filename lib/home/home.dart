@@ -15,7 +15,6 @@ class PageHome extends StatefulWidget {
 
 }
 
-
 class _PageHomeState extends State<PageHome> {
 
   final TextEditingController _searchController = TextEditingController();
@@ -40,7 +39,7 @@ class _PageHomeState extends State<PageHome> {
   List myListData = [];
   int total = 0;
   //
-  void SearchAllParentVideoList() async {
+  Future<void> SearchAllParentVideoList() async {
     Response response;
     response = await dio.post('$myIp$goBackend/teachingVideo/getTeachingParentVideoList');
     print(response.data['data']);

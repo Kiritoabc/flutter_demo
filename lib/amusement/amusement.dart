@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-// import 'package:my_app_1/component/videoPlayer.dart';
 import 'package:my_app_1/component/videoList.dart';
 
 class PageAmusement extends StatefulWidget{

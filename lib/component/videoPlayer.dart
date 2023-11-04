@@ -4,16 +4,15 @@ import 'package:video_player/video_player.dart';
 
 // 第一个播放器
 class VideoPlayerScreen extends StatefulWidget {
-  const VideoPlayerScreen({super.key});
+  const VideoPlayerScreen({super.key, required this.videoUrl});
+  final String videoUrl;
 
   @override
   State<VideoPlayerScreen> createState() => _VideoPlayerScreenState();
 }
 
 class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
-  TargetPlatform? _platform;
   late VideoPlayerController _videoPlayerController1;
-  late VideoPlayerController _videoPlayerController2;
   ChewieController? _chewieController;
   int? bufferDelay;
 
@@ -27,25 +26,15 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
   @override
   void dispose() {
     _videoPlayerController1.dispose();
-    _videoPlayerController2.dispose();
     _chewieController?.dispose();
     super.dispose();
   }
 
-  List<String> srcs = [
-    "http://192.168.0.116:9001/test/1112023-09-26 14-08-23.mkv",
-    "https://assets.mixkit.co/videos/preview/mixkit-daytime-city-traffic-aerial-view-56-large.mp4",
-    "https://assets.mixkit.co/videos/preview/mixkit-a-girl-blowing-a-bubble-gum-at-an-amusement-park-1226-large.mp4"
-  ];
-
   Future<void> initializePlayer() async {
     _videoPlayerController1 =
-        VideoPlayerController.networkUrl(Uri.parse(srcs[currPlayIndex]));
-    _videoPlayerController2 =
-        VideoPlayerController.networkUrl(Uri.parse(srcs[currPlayIndex]));
+        VideoPlayerController.networkUrl(Uri.parse(widget.videoUrl));
     await Future.wait([
       _videoPlayerController1.initialize(),
-      _videoPlayerController2.initialize()
     ]);
     _createChewieController();
     setState(() {});
@@ -80,10 +69,6 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
         start: const Duration(seconds: 10),
         end: const Duration(seconds: 20),
         text: 'Whats up? :)',
-        // text: const TextSpan(
-        //   text: 'Whats up? :)',
-        //   style: TextStyle(color: Colors.amber, fontSize: 22, fontStyle: FontStyle.italic),
-        // ),
       ),
     ];
 
@@ -93,16 +78,6 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
       looping: true,
       progressIndicatorDelay:
       bufferDelay != null ? Duration(milliseconds: bufferDelay!) : null,
-
-      additionalOptions: (context) {
-        return <OptionItem>[
-          OptionItem(
-            onTap: toggleVideo,
-            iconData: Icons.live_tv_sharp,
-            title: 'Toggle Video Src',
-          ),
-        ];
-      },
       subtitle: Subtitles(subtitles),
       subtitleBuilder: (context, dynamic subtitle) => Container(
         padding: const EdgeInsets.all(10.0),
@@ -117,22 +92,8 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
       ),
 
       hideControlsTimer: const Duration(seconds: 1),
-
-
     );
   }
-
-  int currPlayIndex = 0;
-
-  Future<void> toggleVideo() async {
-    await _videoPlayerController1.pause();
-    currPlayIndex += 1;
-    if (currPlayIndex >= srcs.length) {
-      currPlayIndex = 0;
-    }
-    await initializePlayer();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
