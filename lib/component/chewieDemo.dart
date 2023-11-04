@@ -8,18 +8,17 @@ import 'package:video_player/video_player.dart';
 class ChewieDemo extends StatefulWidget {
   const ChewieDemo({
     Key? key,
-    this.title = 'Chewie Demo',
+    this.title = 'Chewie Demo', required this.ParentId,
   }) : super(key: key);
 
   final String title;
+  final int ParentId;
 
   @override
   State<StatefulWidget> createState() {
     return _ChewieDemoState();
   }
 }
-
-
 
 class _ChewieDemoState extends State<ChewieDemo> {
   TargetPlatform? _platform;
@@ -31,37 +30,44 @@ class _ChewieDemoState extends State<ChewieDemo> {
 
   String myIp = "http://172.24.240.1";
 
+  String minioPort = ":9001";
+
+  String goBackend = ":8888";
+
   // Dio 发送请求
   final dio = new Dio();
 
   // 接受Dio的数据
-  List myListData = [];
-
-  //
-  void SearchAllParentVideoList() async {
-    Response response;
-    response = await dio.post('http://172.24.240.1:8888/teachingVideo/getTeachingParentVideoList');
-    print(response.data['data']['list']);
-    setState(() {
-      myListData =
-          response.data['data']['list'];
-    });
-    print(myListData);
-  }
   //{
-  // code: 0,
-  // data: {
-  // list: [{videoName: 1, videoIconUrl: /test/12.jpg, number: 3, content: 测试1, ID: 1}], total: 1},
-  // msg: 获取成功
+  //   list: [
+  //      {ID: 1, CreatedAt: 2023-11-02T13:35:44.308+08:00, UpdatedAt: 2023-11-02T13:35:44.308+08:00, videoName: 1, videoUrl: /test/1测试.mp4, videoIcon: /test/12.jpg, group: 0, type: 0, number: 3, episode: 1, parentId: 1, content: 测试1},
+  //      {ID: 2, CreatedAt: 2023-11-02T13:38:04.536+08:00, UpdatedAt: 2023-11-02T13:38:04.536+08:00, videoName: 2, videoUrl: /test/2测试.mp4, videoIcon: /test/25c23d52f880511ebb6edd017c2d2eca2.jpg, group: 0, type: 0, number: 3, episode: 2, parentId: 1, content: 测试1},
+  //      {ID: 3, CreatedAt: 2023-11-02T13:40:53.378+08:00, UpdatedAt: 2023-11-02T13:40:53.378+08:00, videoName: 3, videoUrl: /test/3测试.mp4, videoIcon: /test/31.jpg, group: 0, type: 0, number: 3, episode: 3, parentId: 1, content: 测试1}
+  //  ],
+  //  total: 3
   // }
+  List myListData = [];
+  // 初始化数据
+  void SearchAllSonVideoList() async {
+    Response response;
+    // 数据准备
+    var formData = FormData.fromMap({
+      'ParentId': widget.ParentId,
+    });
+    response = await dio.post('$myIp$goBackend/teachingVideo/getTeachingSonVideoList',data: formData);
+    setState(() {
+      myListData = response.data['data']['list'];
+      print(myListData);
+    });
+    initializePlayer();
+  }
 
   @override
   void initState() {
     print("-------------------------------");
   // 发送请求
-  SearchAllParentVideoList();
     super.initState();
-    initializePlayer();
+    SearchAllSonVideoList();
   }
 
   @override
@@ -72,59 +78,12 @@ class _ChewieDemoState extends State<ChewieDemo> {
     super.dispose();
   }
 
-  // 集数展示
-  // lib/res/listData.dart
-  List listData = [
-    {
-      "title": 'Candy Shop',
-      "author": 'Mohamed Chahin',
-      "imageUrl": 'https://www.itying.com/images/flutter/1.png',
-      "videoUrl":'http://172.24.240.1:9001/test/测试.mp4',
-    },
-    {
-      "title": 'Childhood',
-      "author": 'Google',
-      "imageUrl": 'https://www.itying.com/images/flutter/2.png',
-      "videoUrl":'https://assets.mixkit.co/videos/preview/mixkit-daytime-city-traffic-aerial-view-56-large.mp4',
-    },
-    {
-      "title": 'Alibaba Shop',
-      "author": 'Alibaba',
-      "imageUrl": 'https://www.itying.com/images/flutter/3.png',
-      "videoUrl":'https://assets.mixkit.co/videos/preview/mixkit-a-girl-blowing-a-bubble-gum-at-an-amusement-park-1226-large.mp4',
-    },
-    {
-      "title": 'Candy Shop',
-      "author": 'Mohamed Chahin',
-      "imageUrl": 'https://www.itying.com/images/flutter/4.png',
-      "videoUrl":'http://172.24.240.1:9001/test/测试.mp4',
-    },
-    {
-      "title": 'Tornado',
-      "author": 'Mohamed Chahin',
-      "imageUrl": 'https://www.itying.com/images/flutter/5.png',
-      "videoUrl":'https://assets.mixkit.co/videos/preview/mixkit-daytime-city-traffic-aerial-view-56-large.mp4',
-    },
-    {
-      "title": 'Undo',
-      "author": 'Mohamed Chahin',
-      "imageUrl": 'https://www.itying.com/images/flutter/6.png',
-      "videoUrl":'https://assets.mixkit.co/videos/preview/mixkit-a-girl-blowing-a-bubble-gum-at-an-amusement-park-1226-large.mp4',
-    },
-    {
-      "title": 'white-dragon',
-      "author": 'Mohamed Chahin',
-      "imageUrl": 'https://www.itying.com/images/flutter/7.png',
-      "videoUrl":'https://assets.mixkit.co/videos/preview/mixkit-a-girl-blowing-a-bubble-gum-at-an-amusement-park-1226-large.mp4',
-    }
-  ];
-
   // 初始化播放器
   Future<void> initializePlayer() async {
     _videoPlayerController1 =
-        VideoPlayerController.networkUrl(Uri.parse(listData[currPlayIndex]['videoUrl']));
+        VideoPlayerController.networkUrl(Uri.parse(myIp+minioPort+myListData[currPlayIndex]['videoUrl']));
     _videoPlayerController2 =
-        VideoPlayerController.networkUrl(Uri.parse(listData[currPlayIndex]['videoUrl']));
+        VideoPlayerController.networkUrl(Uri.parse(myIp+minioPort+myListData[currPlayIndex]['videoUrl']));
     await Future.wait([
       _videoPlayerController1.initialize(),
       _videoPlayerController2.initialize()
@@ -137,12 +96,11 @@ class _ChewieDemoState extends State<ChewieDemo> {
   Future<void> _updateCurrPlayIndex(index ) async{
     setState(() {
       currPlayIndex = index;
-      print(listData[index]['videoUrl']);
+      print(myIp+minioPort+myListData[index]['videoUrl']);
     });
     // 重新初始化播放器
     await initializePlayer();
   }
-
 
   // 创建 _chewieController实例
   void _createChewieController() {
@@ -177,7 +135,6 @@ class _ChewieDemoState extends State<ChewieDemo> {
     );
   }
 
-
   // 估计不需要了
   Future<void> toggleVideo() async {
     await _videoPlayerController1.pause();
@@ -185,45 +142,45 @@ class _ChewieDemoState extends State<ChewieDemo> {
     await initializePlayer();
   }
 
-
-
   Widget _getListData(context,index){
     return Container(
-      // 子元素
-      child:Column(
-        // 子元素
-        children: <Widget>[
-          // 图片
-          InkWell(
-            child: Image.network(
-              listData[index]['imageUrl'],
-              fit: BoxFit.cover,
-            ),
-            onTap: (){
-              print("更换视频");
-              _updateCurrPlayIndex(index);
-            },
-          ),
-          // 图片与文字的间隔使用
-          SizedBox(height:10),
-          // 文字
-          Text(
-              listData[index]['title'],
-              textAlign:TextAlign.center,
-              style:TextStyle(fontSize: 18)
-          ),
-        ],
-      ),
-      // 装饰
       decoration: BoxDecoration(
         // 边框
           border:Border.all(
             // 颜色
-              color:Color.fromRGBO(233, 233, 233, 0.8),
+              color:const Color.fromRGBO(233, 233, 233, 0.8),
               // 边框宽度
               width:1.0
           )
       ),
+      child: Column(
+            // 子元素
+            children: <Widget>[
+              // 图片
+              InkWell(
+                child: SizedBox(
+                  height: 130,
+                  width: 171,
+                  child: Image.network(
+                    myIp+minioPort+myListData[index]['videoIcon'],
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                onTap: (){
+                  print("更换视频");
+                  _updateCurrPlayIndex(index);
+                },
+              ),
+              // 图片与文字的间隔使用
+              const SizedBox(height:10),
+              // 文字
+              Text(
+                  myListData[index]['videoName'],
+                  textAlign:TextAlign.center,
+                  style:const TextStyle(fontSize: 18)
+              ),
+            ],
+          ),
     );
   }
 
@@ -271,7 +228,7 @@ class _ChewieDemoState extends State<ChewieDemo> {
               height: 200, // 根据需要设置高度
               child: GridView.builder(
                 // 定义网格相关样式
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     // 定义列
                     crossAxisCount: 2,
                     // 横向间隙
@@ -280,7 +237,7 @@ class _ChewieDemoState extends State<ChewieDemo> {
                     crossAxisSpacing: 10.0,
                   ),
                   // 数据数量
-                  itemCount: listData.length,
+                  itemCount: myListData.length,
                   // 所有数据
                   itemBuilder: _getListData
               ),
