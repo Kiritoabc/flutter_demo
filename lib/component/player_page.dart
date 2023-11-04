@@ -18,7 +18,7 @@ class _PlayerPage extends State<PlayerPage> {
     super.initState();
     print("bilibili视频播放器");
     player.setDataSource(
-      "http://192.168.128.1:9001/test/测试.mp4",
+      "http://172.24.240.1:9001/test/测试.mp4",
       autoPlay: true);
   }
 

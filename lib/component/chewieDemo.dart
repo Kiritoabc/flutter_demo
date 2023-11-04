@@ -1,4 +1,5 @@
 import 'package:chewie/chewie.dart';
+import 'package:dio/dio.dart';
 import 'package:my_app_1/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
@@ -28,8 +29,37 @@ class _ChewieDemoState extends State<ChewieDemo> {
   int? bufferDelay;
   int currPlayIndex = 0; // 当前播放的index
 
+  String myIp = "http://172.24.240.1";
+
+  // Dio 发送请求
+  final dio = new Dio();
+
+  // 接受Dio的数据
+  List myListData = [];
+
+  //
+  void SearchAllParentVideoList() async {
+    Response response;
+    response = await dio.post('http://172.24.240.1:8888/teachingVideo/getTeachingParentVideoList');
+    print(response.data['data']['list']);
+    setState(() {
+      myListData =
+          response.data['data']['list'];
+    });
+    print(myListData);
+  }
+  //{
+  // code: 0,
+  // data: {
+  // list: [{videoName: 1, videoIconUrl: /test/12.jpg, number: 3, content: 测试1, ID: 1}], total: 1},
+  // msg: 获取成功
+  // }
+
   @override
   void initState() {
+    print("-------------------------------");
+  // 发送请求
+  SearchAllParentVideoList();
     super.initState();
     initializePlayer();
   }
@@ -42,12 +72,6 @@ class _ChewieDemoState extends State<ChewieDemo> {
     super.dispose();
   }
 
-  List<String> srcs = [
-    "http://192.168.0.116:9001/test/1112023-09-26 14-08-23.mkv",
-    "https://assets.mixkit.co/videos/preview/mixkit-daytime-city-traffic-aerial-view-56-large.mp4",
-    "https://assets.mixkit.co/videos/preview/mixkit-a-girl-blowing-a-bubble-gum-at-an-amusement-park-1226-large.mp4"
-  ];
-
   // 集数展示
   // lib/res/listData.dart
   List listData = [
@@ -55,7 +79,7 @@ class _ChewieDemoState extends State<ChewieDemo> {
       "title": 'Candy Shop',
       "author": 'Mohamed Chahin',
       "imageUrl": 'https://www.itying.com/images/flutter/1.png',
-      "videoUrl":'https://assets.mixkit.co/videos/preview/mixkit-daytime-city-traffic-aerial-view-56-large.mp4',
+      "videoUrl":'http://172.24.240.1:9001/test/测试.mp4',
     },
     {
       "title": 'Childhood',
@@ -73,7 +97,7 @@ class _ChewieDemoState extends State<ChewieDemo> {
       "title": 'Candy Shop',
       "author": 'Mohamed Chahin',
       "imageUrl": 'https://www.itying.com/images/flutter/4.png',
-      "videoUrl":'http://172.29.64.1:9001/test/1112023-09-26 14-08-23.mkv',
+      "videoUrl":'http://172.24.240.1:9001/test/测试.mp4',
     },
     {
       "title": 'Tornado',
@@ -158,9 +182,6 @@ class _ChewieDemoState extends State<ChewieDemo> {
   Future<void> toggleVideo() async {
     await _videoPlayerController1.pause();
     currPlayIndex += 1;
-    if (currPlayIndex >= srcs.length) {
-      currPlayIndex = 0;
-    }
     await initializePlayer();
   }
 

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
 class VideoInfo extends StatelessWidget {
-  const VideoInfo({Key? key, required this.videoImageUrl, required this.videoTitle, required this.videoCount, required this.videoContent}) : super(key: key);
+  const VideoInfo({Key? key, required this.videoIconUrl, required this.videoName, required this.number, required this.content}) : super(key: key);
 
-  final String videoImageUrl;
-  final String videoTitle;
-  final int videoCount;
-  final String videoContent;
+  final String videoIconUrl;
+  final String videoName;
+  final int number;
+  final String content;
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +30,7 @@ class VideoInfo extends StatelessWidget {
                       height: 120,
                       width:  120,
                       child: Image.network(
-                        videoImageUrl,
+                        videoIconUrl,
                         width: 120,
                         height: 100,
                         fit: BoxFit.cover,
@@ -44,17 +44,17 @@ class VideoInfo extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  '主题: $videoTitle',
+                  '主题: $videoName',
                   style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
                 ),
                 SizedBox(height: 5),
                 Text(
-                  '共 $videoCount 集',
+                  '共 $number 集',
                   style: TextStyle(fontSize: 10),
                 ),
                 SizedBox(height: 5),
                 Text(
-                  '描述:$videoContent',
+                  '描述:$content',
                   style: TextStyle(fontSize: 12),
                 ),
               ],
@@ -63,44 +63,5 @@ class VideoInfo extends StatelessWidget {
         ),
       ),
     );
-    //   Row(
-    //   children: [
-    //     const SizedBox(width: 20),
-    //     Card(
-    //       shape: RoundedRectangleBorder(
-    //         borderRadius: BorderRadiusDirectional.circular(50),
-    //       ),
-    //       child: Opacity(
-    //         opacity: 0.85,
-    //         child: Image.network(
-    //           videoImageUrl,
-    //           width: 120,
-    //           height: 100,
-    //           fit: BoxFit.cover,
-    //         ),
-    //       ),
-    //     ),
-    //     const SizedBox(width: 30),
-    //     Column(
-    //       crossAxisAlignment: CrossAxisAlignment.start,
-    //       children: [
-    //         Text(
-    //           '主题: $videoTitle',
-    //           style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
-    //         ),
-    //         SizedBox(height: 5),
-    //         Text(
-    //           '共 $videoCount 集',
-    //           style: TextStyle(fontSize: 8),
-    //         ),
-    //         SizedBox(height: 5),
-    //         Text(
-    //           '描述:$videoContent',
-    //           style: TextStyle(fontSize: 12),
-    //         ),
-    //       ],
-    //     ),
-    //   ],
-    // );
   }
 }
