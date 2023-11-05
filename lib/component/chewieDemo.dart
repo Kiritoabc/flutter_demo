@@ -23,7 +23,6 @@ class ChewieDemo extends StatefulWidget {
 class _ChewieDemoState extends State<ChewieDemo> {
   TargetPlatform? _platform;
   late VideoPlayerController _videoPlayerController1;
-  late VideoPlayerController _videoPlayerController2;
   ChewieController? _chewieController;
   int? bufferDelay;
   int currPlayIndex = 0; // 当前播放的index
@@ -73,7 +72,6 @@ class _ChewieDemoState extends State<ChewieDemo> {
   @override
   void dispose() {
     _videoPlayerController1.dispose();
-    _videoPlayerController2.dispose();
     _chewieController?.dispose();
     super.dispose();
   }
@@ -82,11 +80,8 @@ class _ChewieDemoState extends State<ChewieDemo> {
   Future<void> initializePlayer() async {
     _videoPlayerController1 =
         VideoPlayerController.networkUrl(Uri.parse(myIp+minioPort+myListData[currPlayIndex]['videoUrl']));
-    _videoPlayerController2 =
-        VideoPlayerController.networkUrl(Uri.parse(myIp+minioPort+myListData[currPlayIndex]['videoUrl']));
     await Future.wait([
       _videoPlayerController1.initialize(),
-      _videoPlayerController2.initialize()
     ]);
     _createChewieController();
     setState(() {});
@@ -144,6 +139,7 @@ class _ChewieDemoState extends State<ChewieDemo> {
 
   Widget _getListData(context,index){
     return Container(
+      height: 30,
       decoration: BoxDecoration(
         // 边框
           border:Border.all(
@@ -157,22 +153,22 @@ class _ChewieDemoState extends State<ChewieDemo> {
             // 子元素
             children: <Widget>[
               // 图片
-              InkWell(
-                child: SizedBox(
-                  height: 130,
-                  width: 171,
-                  child: Image.network(
-                    myIp+minioPort+myListData[index]['videoIcon'],
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                onTap: (){
-                  print("更换视频");
-                  _updateCurrPlayIndex(index);
-                },
-              ),
-              // 图片与文字的间隔使用
-              const SizedBox(height:10),
+              // InkWell(
+              //   child: SizedBox(
+              //     height: 130,
+              //     width: 171,
+              //     child: Image.network(
+              //       myIp+minioPort+myListData[index]['videoIcon'],
+              //       fit: BoxFit.cover,
+              //     ),
+              //   ),
+              //   onTap: (){
+              //     print("更换视频");
+              //     _updateCurrPlayIndex(index);
+              //   },
+              // ),
+              // // 图片与文字的间隔使用
+              // const SizedBox(height:10),
               // 文字
               Text(
                   myListData[index]['videoName'],
@@ -188,8 +184,15 @@ class _ChewieDemoState extends State<ChewieDemo> {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: widget.title,
-      theme: AppTheme.dark.copyWith(
-        platform: _platform ?? Theme.of(context).platform,
+      theme: ThemeData(
+        brightness: Brightness.light,
+        primaryColor: Colors.amber,
+        fontFamily: 'Georgia',
+        textTheme: const TextTheme(
+          displayLarge: TextStyle(fontSize: 72, fontWeight: FontWeight.bold),
+          titleLarge: TextStyle(fontSize: 36, fontStyle: FontStyle.italic),
+          bodyMedium: TextStyle(fontSize: 14, fontFamily: 'Hind'),
+        ),
       ),
       home: Scaffold(
         appBar: AppBar(
@@ -225,16 +228,24 @@ class _ChewieDemoState extends State<ChewieDemo> {
               ),
             ),
             SizedBox(
+              height: 30,
+              child: Text(
+                  "集数",
+                  textAlign:TextAlign.center,
+                  style:const TextStyle(fontSize: 18)
+              ),
+            ),
+            SizedBox(
               height: 200, // 根据需要设置高度
               child: GridView.builder(
                 // 定义网格相关样式
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     // 定义列
-                    crossAxisCount: 2,
+                    crossAxisCount: 8,
                     // 横向间隙
-                    mainAxisSpacing: 10.0,
+                    mainAxisSpacing: 5.0,
                     // 纵向间隙
-                    crossAxisSpacing: 10.0,
+                    crossAxisSpacing: 5.0,
                   ),
                   // 数据数量
                   itemCount: myListData.length,

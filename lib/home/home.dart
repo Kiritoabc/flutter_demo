@@ -3,7 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:my_app_1/component/videoInfo.dart';
 
-import 'package:my_app_1/component/chewieDemo.dart';
 
 class PageHome extends StatefulWidget {
   const PageHome({super.key, required this.title});
@@ -62,9 +61,6 @@ class _PageHomeState extends State<PageHome> {
 
   @override
   Widget build(BuildContext context) {
-
-    // 跳转记录
-    final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
     // 返回
     return Column(
         children: [
@@ -99,10 +95,6 @@ class _PageHomeState extends State<PageHome> {
                   return SizedBox(
                         width: 800, height: 120,
                         child: InkWell(onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => ChewieDemo(ParentId: myListData[index]['ID'])),
-                          );
                           // 在这里添加你的点击事件处理逻辑
                             print('视频信息 $index 被点击');
                           },
@@ -110,7 +102,8 @@ class _PageHomeState extends State<PageHome> {
                           videoIconUrl: myIp + minioPort + myListData[index]['videoIconUrl'],
                           videoName: myListData[index]['videoName'],
                           number: myListData[index]['number'],
-                          content: myListData[index]['content']
+                          content: myListData[index]['content'],
+                          ID: myListData[index]['ID'],
                           )
                         )
                   );
