@@ -2,6 +2,9 @@ import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:my_app_1/component/videoInfo.dart';
+import 'package:my_app_1/utils/dio_util.dart';
+
+import '../utils/config.dart';
 
 
 class PageHome extends StatefulWidget {
@@ -18,11 +21,11 @@ class _PageHomeState extends State<PageHome> {
 
   final TextEditingController _searchController = TextEditingController();
 
-  String myIp = "http://172.24.240.1";
+  String myIp = Config.myIp;
 
-  String minioPort = ":9001";
+  String minioPort = Config.minioPort;
 
-  String goBackend = ":8888";
+  String goBackend = Config.goBackend;
 
   // Dio 发送请求
   final dio = new Dio();
@@ -40,7 +43,8 @@ class _PageHomeState extends State<PageHome> {
   //
   Future<void> SearchAllParentVideoList() async {
     Response response;
-    response = await dio.post('$myIp$goBackend/teachingVideo/getTeachingParentVideoList');
+    HttpUtils.init();
+    response = await HttpUtils.post('/teachingVideo/getTeachingParentVideoList');
     print(response.data['data']);
     setState(() {
       myListData =

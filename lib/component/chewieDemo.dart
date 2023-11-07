@@ -2,7 +2,10 @@ import 'package:chewie/chewie.dart';
 import 'package:dio/dio.dart';
 import 'package:my_app_1/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:my_app_1/utils/dio_util.dart';
 import 'package:video_player/video_player.dart';
+
+import '../utils/config.dart';
 
 // Chewie 的案例
 class ChewieDemo extends StatefulWidget {
@@ -27,15 +30,14 @@ class _ChewieDemoState extends State<ChewieDemo> {
   int? bufferDelay;
   int currPlayIndex = 0; // 当前播放的index
 
-  String myIp = "http://172.24.240.1";
+  String myIp = Config.myIp;
 
-  String minioPort = ":9001";
+  String minioPort = Config.minioPort;
 
-  String goBackend = ":8888";
+  String goBackend = Config.goBackend;
 
   // Dio 发送请求
   final dio = new Dio();
-
   // 接受Dio的数据
   //{
   //   list: [
@@ -53,7 +55,8 @@ class _ChewieDemoState extends State<ChewieDemo> {
     var formData = FormData.fromMap({
       'ParentId': widget.ParentId,
     });
-    response = await dio.post('$myIp$goBackend/teachingVideo/getTeachingSonVideoList',data: formData);
+    HttpUtils.init();
+    response = await HttpUtils.post('/teachingVideo/getTeachingSonVideoList',data: formData);
     setState(() {
       myListData = response.data['data']['list'];
       print(myListData);

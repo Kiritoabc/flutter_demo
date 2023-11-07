@@ -1,7 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:my_app_1/component/videoPlayer.dart';
-import 'player_page.dart';
+import '../utils/config.dart';
+import '../utils/dio_util.dart';
 
 
 class PageViewExampleApp extends StatefulWidget {
@@ -13,14 +14,11 @@ class PageViewExampleApp extends StatefulWidget {
 
 class _PageViewExampleState extends State<PageViewExampleApp> {
 
-  String myIp = "http://172.24.240.1";
+  String myIp = Config.myIp;
 
-  String minioPort = ":9001";
+  String minioPort = Config.minioPort;
 
-  String goBackend = ":8888";
-
-  // Dio 发送请求
-  final dio = new Dio();
+  String goBackend = Config.goBackend;
 
   final myListData = [];
   int total = 0;
@@ -36,7 +34,8 @@ class _PageViewExampleState extends State<PageViewExampleApp> {
   // 发送请求
   Future<void> GetAmusementVideo() async {
     Response response;
-    response = await dio.get("$myIp$goBackend/amusement/get");
+    HttpUtils.init();
+    response = await HttpUtils.get("/amusement/get");
     print(response.data['data']);
     setState(() {
       myListData.addAll(response.data['data']['list']);
