@@ -1,5 +1,7 @@
 import 'package:dio/dio.dart';
 
+import 'config.dart';
+
 
 //
 class Http {
@@ -138,7 +140,7 @@ class Http {
 
 class  HttpUtils {
   static void init({
-     String baseUrl="http://172.18.0.1:8888",
+     String baseUrl=Config.myIp+Config.goBackend,
   }) {
     Http().init(
       baseUrl: baseUrl,
