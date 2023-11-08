@@ -1,4 +1,6 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:my_app_1/utils/dio_util.dart';
 
 import '../../../component/already_have_an_account_acheck.dart';
 import '../../../constants.dart';
@@ -56,9 +58,25 @@ class SignUpForm extends StatelessWidget {
           ),
           const SizedBox(height: defaultPadding / 2),
           ElevatedButton(
-            onPressed: () {
+            onPressed: () async {
               print(_usernameController.text);
               print(_passwordController.text);
+              HttpUtils.init();
+              Response response;
+
+              response = await HttpUtils.post("/user/register",data: {
+                "userName": _usernameController.text,
+                "password": _passwordController.text,
+              });
+
+              print(response.data);
+              // 注册成功，跳转到登录界面
+              if(response.statusCode == 200){
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => LoginScreen()),
+                );
+              }
             },
             child: Text("Sign Up".toUpperCase()),
           ),

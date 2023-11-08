@@ -1,4 +1,6 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:my_app_1/utils/dio_util.dart';
 
 import '../../../component/already_have_an_account_acheck.dart';
 import '../../../constants.dart';
@@ -52,10 +54,15 @@ class LoginForm extends StatelessWidget {
           Hero(
             tag: "login_btn",
             child: ElevatedButton(
-              onPressed: () {
-                // todo
-                print(_usernameController.text);
-                print(_passwordController.text);
+              onPressed: () async {
+                // todo 测试登录注册接口
+                HttpUtils.init();
+                Response res;
+                res = await HttpUtils.post("/user/login",data: {
+                  "userName": _usernameController.text,
+                  "password": _passwordController.text,
+                });
+                print(res.data);
               },
               child: Text(
                 "Login".toUpperCase(),
