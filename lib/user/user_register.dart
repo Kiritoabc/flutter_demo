@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:my_app_1/user/user_login.dart';
 import 'package:my_app_1/utils/dio_util.dart';
 
-class PageUser extends StatefulWidget {
-  const PageUser({super.key, required this.title});
+class PageRegister extends StatefulWidget {
+  const PageRegister({super.key, required this.title});
 
   final String title;
   @override
@@ -13,7 +13,7 @@ class PageUser extends StatefulWidget {
 
 }
 
-class _PageUserState extends State<PageUser> {
+class _PageUserState extends State<PageRegister> {
   final _formKey = GlobalKey<FormState>();
   String _username = '';
   String _password = '';
