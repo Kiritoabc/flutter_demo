@@ -63,6 +63,13 @@ class _PageViewExampleState extends State<PageViewExampleApp> {
       /// [PageView.scrollDirection] defaults to [Axis.horizontal].
       /// Use [Axis.vertical] to scroll vertically.
       controller: controller,
+      onPageChanged: (int page) {
+        if (page == myListData.length - 1) {
+          // 有问题吗？
+          page = 0;
+          controller.animateToPage(0, duration: Duration.zero, curve: Curves.linear);
+        }
+      },
       children: <Widget>[
         ...centers
       ],

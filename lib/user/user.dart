@@ -36,7 +36,7 @@ class _PageUserState extends State<PageUser> {
           children: <Widget>[
             _isLoggedIn
                 ? Text(
-              '欢迎回来！',
+              '欢迎回来！待开发中！',
               style: TextStyle(fontSize: 24.0),
             )
                 : Column(

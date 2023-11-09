@@ -160,7 +160,7 @@ class _ChewieDemoState extends State<ChewieDemo> {
                 child: SizedBox(
                   // 文字
                   child:  Text(
-                      myListData[index]['videoName'],
+                      myListData[index]['episode'].toString(),
                       textAlign:TextAlign.center,
                       style:const TextStyle(fontSize: 18)
                   ),
