@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_app_1/user/Login/login_screen.dart';
 
 import 'layout/layout.dart';
 import 'package:fijkplayer/fijkplayer.dart';
@@ -22,7 +23,7 @@ class MyApp extends StatelessWidget {
           bodyMedium: TextStyle(fontSize: 14, fontFamily: 'Hind'),
         ),
       ),
-      home: const MyLayout(title: 'First Flutter App'),
+      home: LoginScreen(),
     );
   }
 }

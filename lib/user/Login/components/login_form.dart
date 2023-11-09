@@ -4,7 +4,9 @@ import 'package:my_app_1/utils/dio_util.dart';
 
 import '../../../component/already_have_an_account_acheck.dart';
 import '../../../constants.dart';
+import '../../../layout/layout.dart';
 import '../../Signup/signup_screen.dart';
+import '../../user.dart';
 
 class LoginForm extends StatelessWidget {
   const LoginForm({
@@ -27,7 +29,7 @@ class LoginForm extends StatelessWidget {
             controller: _usernameController,
             onSaved: (email) {},
             decoration: InputDecoration(
-              hintText: "Your email",
+              hintText: "Your UserName",
               prefixIcon: Padding(
                 padding: const EdgeInsets.all(defaultPadding),
                 child: Icon(Icons.person),
@@ -62,7 +64,14 @@ class LoginForm extends StatelessWidget {
                   "userName": _usernameController.text,
                   "password": _passwordController.text,
                 });
-                print(res.data);
+                if(res.data["code"] == 0) {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => MyLayout(title: 'First Flutter App',isLogin: true)
+                    )
+                  );
+                }
               },
               child: Text(
                 "Login".toUpperCase(),

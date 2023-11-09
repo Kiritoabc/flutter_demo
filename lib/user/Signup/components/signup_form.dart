@@ -71,7 +71,8 @@ class SignUpForm extends StatelessWidget {
 
               print(response.data);
               // 注册成功，跳转到登录界面
-              if(response.statusCode == 200){
+              if(response.data['code'] == 0){
+                Navigator.of(context).pop();
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => LoginScreen()),

@@ -1,39 +1,35 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:my_app_1/user/user_login.dart';
 
 import 'Login/login_screen.dart';
 
 
 class PageUser extends StatefulWidget {
-  const PageUser({super.key, required this.title});
+  PageUser({super.key, required this.title,this.isLogin = false});
 
   final String title;
+
+  bool isLogin;
   @override
   State<StatefulWidget> createState() => _PageUserState();
 
 }
 
 class _PageUserState extends State<PageUser> {
-  bool _isLoggedIn = false;
+  late bool _isLoggedIn;
 
   @override
   void initState() {
     super.initState();
-    // 模拟用户登录状态，可以根据实际情况从数据库或其他地方获取
-    Future.delayed(Duration(seconds: 2), () {
-      setState(() {
-        // _isLoggedIn = true;
-      });
+    // 设置用户登录状态
+    setState(() {
+      _isLoggedIn = widget.isLogin;
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('用户信息'),
-      ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -53,7 +49,6 @@ class _PageUserState extends State<PageUser> {
                 SizedBox(height: 16.0),
                 ElevatedButton(
                   onPressed: () {
-                    print("hello");
                     // 跳转到登录页面
                     Navigator.push(
                       context,

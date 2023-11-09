@@ -7,8 +7,9 @@ import 'package:my_app_1/amusement/amusement.dart';
 
 
 class MyLayout extends StatefulWidget{
-  const MyLayout({super.key,required this.title});
+  MyLayout({super.key,required this.title,this.isLogin=false});
   final String title;
+  final isLogin ;
   @override
   State<StatefulWidget> createState() => _MyLayoutState();
 }
@@ -31,7 +32,7 @@ class _MyLayoutState extends State<MyLayout> {
   @override
   void initState() {
     super.initState();
-    _bottomNavPages..add(const PageHome(title: '首页',))..add(const PageAmusement(title: '娱乐',))..add(const PageUser(title: '我的',));
+    _bottomNavPages..add(const PageHome(title: '首页',))..add(const PageAmusement(title: '娱乐',))..add(PageUser(title: '我的',isLogin: widget.isLogin,));
   }
 
   @override

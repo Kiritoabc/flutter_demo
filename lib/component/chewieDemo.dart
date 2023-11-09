@@ -156,27 +156,19 @@ class _ChewieDemoState extends State<ChewieDemo> {
             // 子元素
             children: <Widget>[
               // 图片
-              // InkWell(
-              //   child: SizedBox(
-              //     height: 130,
-              //     width: 171,
-              //     child: Image.network(
-              //       myIp+minioPort+myListData[index]['videoIcon'],
-              //       fit: BoxFit.cover,
-              //     ),
-              //   ),
-              //   onTap: (){
-              //     print("更换视频");
-              //     _updateCurrPlayIndex(index);
-              //   },
-              // ),
-              // // 图片与文字的间隔使用
-              // const SizedBox(height:10),
-              // 文字
-              Text(
-                  myListData[index]['videoName'],
-                  textAlign:TextAlign.center,
-                  style:const TextStyle(fontSize: 18)
+              InkWell(
+                child: SizedBox(
+                  // 文字
+                  child:  Text(
+                      myListData[index]['videoName'],
+                      textAlign:TextAlign.center,
+                      style:const TextStyle(fontSize: 18)
+                  ),
+                ),
+                onTap: (){
+                  print("更换视频");
+                  _updateCurrPlayIndex(index);
+                },
               ),
             ],
           ),
