@@ -68,6 +68,9 @@ class _PageViewExampleState extends State<PageViewExampleApp> {
           // 有问题吗？
           page = 0;
           controller.animateToPage(0, duration: Duration.zero, curve: Curves.linear);
+        }else if (page == 0) {
+          page = myListData.length - 1;
+          controller.animateToPage(myListData.length - 1, duration: Duration.zero, curve: Curves.linear);
         }
       },
       children: <Widget>[

@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:my_app_1/utils/dio_util.dart';
 
 import '../../../component/already_have_an_account_acheck.dart';
@@ -65,6 +66,15 @@ class LoginForm extends StatelessWidget {
                   "password": _passwordController.text,
                 });
                 if(res.data["code"] == 0) {
+                  Fluttertoast.showToast(
+                      msg: "Login SUCCESS",
+                      toastLength: Toast.LENGTH_SHORT,
+                      gravity: ToastGravity.TOP,
+                      timeInSecForIosWeb: 1,
+                      backgroundColor: Colors.white,
+                      textColor: Colors.blue,
+                      fontSize: 16.0
+                  );
                   Navigator.push(
                     context,
                     MaterialPageRoute(
