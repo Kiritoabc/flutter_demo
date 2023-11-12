@@ -3,6 +3,9 @@ import 'package:my_app_1/home/home.dart';
 import 'package:my_app_1/user/user.dart';
 import 'package:my_app_1/amusement/amusement.dart';
 
+import '../utils/tabBar/CircularBottomNavigation.dart';
+import '../utils/tabBar/TabItem.dart';
+
 
 
 
@@ -17,17 +20,26 @@ class MyLayout extends StatefulWidget{
 
 class _MyLayoutState extends State<MyLayout> {
 
-  int _selectedIndex = 0;
+  static int _selectedIndex = 0;
 
-  void _onItemTapped(int index) {
+  void _onItemTapped(int? index) {
     setState(() {
-      _selectedIndex = index;
+      _selectedIndex = index!;
     });
   }
 
   // 底部导航栏各个可切换页面组
+
   final List<Widget> _bottomNavPages = [];
 
+  List<TabItem> tabItems = List.of([
+    TabItem(Icons.home, "首页", Colors.blue, labelStyle: TextStyle(fontWeight: FontWeight.normal)),
+    TabItem(Icons.video_chat, "娱乐", Colors.orange, labelStyle: TextStyle(color: Colors.red, fontWeight: FontWeight.bold)),
+    TabItem(Icons.supervised_user_circle, "我的", Colors.red, circleStrokeColor: Colors.black),
+  ]);
+
+  CircularBottomNavigationController _navigationController =
+  new CircularBottomNavigationController(_selectedIndex);
 
   @override
   void initState() {
@@ -54,21 +66,28 @@ class _MyLayoutState extends State<MyLayout> {
           IconButton(
             icon: const Icon(Icons.search),
             onPressed: () {
+              print(_selectedIndex);
             },
           )
         ],
       ),
-      body:  _bottomNavPages[_selectedIndex],
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem> [
-          BottomNavigationBarItem(icon: Icon(Icons.home),label: "首页"),
-          BottomNavigationBarItem(icon: Icon(Icons.video_chat),label: "娱乐"),
-          BottomNavigationBarItem(icon: Icon(Icons.supervised_user_circle),label: "我的")
-        ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: Colors.teal,
-        onTap: _onItemTapped,
-      ),
+      body:   _bottomNavPages[_selectedIndex],
+      bottomNavigationBar: CircularBottomNavigation(
+        tabItems,
+        controller: _navigationController,
+        selectedPos: _selectedIndex,
+        selectedCallback: _onItemTapped,
+      )
+      // bottomNavigationBar: BottomNavigationBar(
+      //   items: const <BottomNavigationBarItem> [
+      //     BottomNavigationBarItem(icon: Icon(Icons.home),label: "首页"),
+      //     BottomNavigationBarItem(icon: Icon(Icons.video_chat),label: "娱乐"),
+      //     BottomNavigationBarItem(icon: Icon(Icons.supervised_user_circle),label: "我的")
+      //   ],
+      //   currentIndex: _selectedIndex,
+      //   selectedItemColor: Colors.teal,
+      //   onTap: _onItemTapped,
+      // ),
     );
   }
 

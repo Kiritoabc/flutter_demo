@@ -46,6 +46,8 @@ dependencies:
 #  fijkplayer_skin: ^2.2.8
   # 提示依赖
   fluttertoast: ^8.2.3
+#   底部栏插件
+
 
 dev_dependencies:
   flutter_test:
