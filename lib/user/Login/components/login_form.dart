@@ -78,7 +78,7 @@ class LoginForm extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => MyLayout(title: 'First Flutter App',isLogin: true)
+                        builder: (context) => MyLayout(title: 'Chinese Learning App',isLogin: true)
                     )
                   );
                 }

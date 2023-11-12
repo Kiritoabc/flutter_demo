@@ -55,11 +55,11 @@ class VideoInfo extends StatelessWidget {
                                 onPressed: () {
                                   Navigator.push(
                                     context,
-                                    MaterialPageRoute(builder: (context) => ChewieDemo(ParentId: ID)),
+                                    MaterialPageRoute(builder: (context) => ChewieDemo(ParentId: ID,title: videoName,)),
                                   );
                                   print("hello flutter");
                                 },
-                                color: Colors.amberAccent,
+                                color: Colors.blueAccent,
                                 iconSize: 40,
                               ),
                             ),
@@ -85,10 +85,26 @@ class VideoInfo extends StatelessWidget {
                   style: TextStyle(fontSize: 10),
                 ),
                 SizedBox(height: 5),
-                Text(
-                  '描述：$content',
-                  style: TextStyle(fontSize: 12),
+                Expanded(
+                  child: Container(
+                    // color: Colors.amber.shade100,
+                    height: 500,
+                    width: 150,
+                    child: Text(
+                      '描述：$content',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 10,
+                        // color: Colors.black87
+                      ),
+                      // overflow: TextOverflow.ellipsis,
+                      maxLines: 5,
+                      textDirection: TextDirection.ltr,
+                      softWrap: true,
+                    ),
+                  ),
                 ),
+                // SizedBox(height: 30),
               ],
             ),
           ],

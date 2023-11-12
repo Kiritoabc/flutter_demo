@@ -98,7 +98,7 @@ class _PageHomeState extends State<PageHome> {
                 itemCount: total,
                 itemBuilder: (context,index) {
                   return SizedBox(
-                        width: 800, height: 120,
+                        width: 800, height: 130,
                         child: InkWell(onTap: () {
                           // 在这里添加你的点击事件处理逻辑
                             print('视频信息 $index 被点击');

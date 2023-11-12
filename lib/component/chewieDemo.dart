@@ -104,6 +104,7 @@ class _ChewieDemoState extends State<ChewieDemo> {
   void _createChewieController() {
     _chewieController = ChewieController(
       videoPlayerController: _videoPlayerController1,
+      aspectRatio: 16/9,
       autoPlay: true,
       looping: true,
       progressIndicatorDelay:
@@ -160,9 +161,11 @@ class _ChewieDemoState extends State<ChewieDemo> {
                 child: SizedBox(
                   // 文字
                   child:  Text(
-                      myListData[index]['episode'].toString(),
+                      '第'+myListData[index]['episode'].toString()+'集',
                       textAlign:TextAlign.center,
-                      style:const TextStyle(fontSize: 18)
+                    style: index == currPlayIndex
+                        ? const TextStyle(fontSize: 18, color: Colors.blue)
+                        : const TextStyle(fontSize: 18),
                   ),
                 ),
                 onTap: (){
@@ -191,6 +194,13 @@ class _ChewieDemoState extends State<ChewieDemo> {
       ),
       home: Scaffold(
         appBar: AppBar(
+          title: Text(widget.title,
+            style: const TextStyle(
+              color: Colors.black87, // 设置字体颜色
+              fontSize: 20,   // 设置字体大小
+            ),
+          ),
+          centerTitle: true,
           leading: IconButton(
             //这是图标长按会出现的提示信息，返回按钮这么常用，应该不需要吧
             //tooltip: '返回上一页',
@@ -203,40 +213,42 @@ class _ChewieDemoState extends State<ChewieDemo> {
         ),
         body: Column(
           children: <Widget>[
-            Expanded(
-              flex: 1,
-              child: Center(
-                child: _chewieController != null &&
-                    _chewieController!
-                        .videoPlayerController.value.isInitialized
-                    ? Chewie(
-                  controller: _chewieController!,
-                )
-                    : const Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    CircularProgressIndicator(),
-                    SizedBox(height: 10),
-                    Text('Loading'),
-                  ],
-                ),
+            SizedBox(
+              width: 353,
+              height: 220,
+              child: _chewieController != null &&
+                  _chewieController!
+                      .videoPlayerController.value.isInitialized
+                  ? Chewie(controller: _chewieController!,)
+                  : const Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  CircularProgressIndicator(),
+                  SizedBox(height: 10),
+                  Text('Loading'),
+                ],
               ),
             ),
+            // Expanded(
+            //   flex: 1,
+            //   child:
+            // ),
+            // Chewie(controller: _chewieController!,),
             SizedBox(
-              height: 30,
+              height:30,
               child: Text(
-                  "集数",
-                  textAlign:TextAlign.center,
+                  "选集",
+                  textAlign:TextAlign.left,
                   style:const TextStyle(fontSize: 18)
               ),
             ),
             SizedBox(
-              height: 200, // 根据需要设置高度
+              height: 35, // 根据需要设置高度
               child: GridView.builder(
                 // 定义网格相关样式
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     // 定义列
-                    crossAxisCount: 8,
+                    crossAxisCount: 4,
                     // 横向间隙
                     mainAxisSpacing: 5.0,
                     // 纵向间隙
