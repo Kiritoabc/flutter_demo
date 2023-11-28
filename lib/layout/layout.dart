@@ -3,6 +3,7 @@ import 'package:my_app_1/home/home.dart';
 import 'package:my_app_1/user/user.dart';
 import 'package:my_app_1/amusement/amusement.dart';
 
+import '../user/Profile/profileHomePage.dart';
 import '../utils/tabBar/CircularBottomNavigation.dart';
 import '../utils/tabBar/TabItem.dart';
 
@@ -44,7 +45,8 @@ class _MyLayoutState extends State<MyLayout> {
   @override
   void initState() {
     super.initState();
-    _bottomNavPages..add(const PageHome(title: '首页',))..add(const PageAmusement(title: '娱乐',))..add(PageUser(title: '我的',isLogin: widget.isLogin,));
+    // _bottomNavPages..add(const PageHome(title: '首页',))..add(const PageAmusement(title: '娱乐',))..add(PageUser(title: '我的',isLogin: widget.isLogin,));
+    _bottomNavPages..add(const PageHome(title: '首页',))..add(const PageAmusement(title: '娱乐',))..add(ProfileOnePage());
   }
 
   @override
