@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:my_app_1/video_details/movie_api.dart';
+import 'package:my_app_1/video_details/movie_details_page.dart';
 
 import 'chewieDemo.dart';
 
@@ -55,7 +57,8 @@ class VideoInfo extends StatelessWidget {
                                 onPressed: () {
                                   Navigator.push(
                                     context,
-                                    MaterialPageRoute(builder: (context) => ChewieDemo(ParentId: ID,title: videoName,)),
+                                    // MaterialPageRoute(builder: (context) => ChewieDemo(ParentId: ID,title: videoName,)),
+                                    MaterialPageRoute(builder: (context) => MovieDetailsPage(testMovie))
                                   );
                                   print("hello flutter");
                                 },

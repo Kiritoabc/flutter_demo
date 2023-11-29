@@ -33,10 +33,10 @@ class CircularBottomNavigation extends StatefulWidget {
   CircularBottomNavigation(
     this.tabItems, {
     this.selectedPos = 0,
-    this.barHeight = 60,
+    this.barHeight = 50,
     barBackgroundColor,
     this.barBackgroundGradient,
-    this.circleSize = 58,
+    this.circleSize = 50,
     this.circleStrokeWidth = 4,
     this.iconsSize = 32,
     this.selectedIconColor = Colors.white,

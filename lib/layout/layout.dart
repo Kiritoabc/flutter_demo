@@ -6,6 +6,8 @@ import 'package:my_app_1/amusement/amusement.dart';
 import '../user/Profile/profileHomePage.dart';
 import '../utils/tabBar/CircularBottomNavigation.dart';
 import '../utils/tabBar/TabItem.dart';
+import '../video_details/movie_api.dart';
+import '../video_details/movie_details_page.dart';
 
 
 
@@ -18,7 +20,6 @@ class MyLayout extends StatefulWidget{
   State<StatefulWidget> createState() => _MyLayoutState();
 }
 ///  自己定义的布局
-
 class _MyLayoutState extends State<MyLayout> {
 
   static int _selectedIndex = 0;
@@ -38,10 +39,8 @@ class _MyLayoutState extends State<MyLayout> {
     TabItem(Icons.video_chat, "娱乐", Colors.orange, labelStyle: TextStyle(color: Colors.red, fontWeight: FontWeight.bold)),
     TabItem(Icons.supervised_user_circle, "我的", Colors.red, circleStrokeColor: Colors.black),
   ]);
-
   CircularBottomNavigationController _navigationController =
   new CircularBottomNavigationController(_selectedIndex);
-
   @override
   void initState() {
     super.initState();
@@ -53,26 +52,26 @@ class _MyLayoutState extends State<MyLayout> {
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.blueAccent,
-        title: Text(widget.title,
-          style: const TextStyle(
-          color: Colors.black87, // 设置字体颜色
-              fontSize: 20,   // 设置字体大小
-            ),
-          ),
-        titleSpacing: 10,
-        elevation: 0, // 隐藏底部阴影分割线
-        centerTitle: true, // 标题是否剧中
-        actions: <Widget>[
-          IconButton(
-            icon: const Icon(Icons.search),
-            onPressed: () {
-              print(_selectedIndex);
-            },
-          )
-        ],
-      ),
+      // appBar: AppBar(
+      //   backgroundColor: Colors.blueAccent,
+      //   title: Text(widget.title,
+      //     style: const TextStyle(
+      //     color: Colors.black87, // 设置字体颜色
+      //         fontSize: 20,   // 设置字体大小
+      //       ),
+      //     ),
+      //   titleSpacing: 10,
+      //   elevation: 0, // 隐藏底部阴影分割线
+      //   centerTitle: true, // 标题是否剧中
+      //   actions: <Widget>[
+      //     IconButton(
+      //       icon: const Icon(Icons.search),
+      //       onPressed: () {
+      //         print(_selectedIndex);
+      //       },
+      //     )
+      //   ],
+      // ),
       body:   _bottomNavPages[_selectedIndex],
       bottomNavigationBar: CircularBottomNavigation(
         tabItems,

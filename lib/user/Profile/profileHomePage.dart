@@ -18,7 +18,7 @@ class ProfileOnePage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
             ProfileTile(
-              title: "Pawan Kumar",
+              title: "菠萝",
               subtitle: "Developer",
             ),
             Padding(
@@ -42,7 +42,7 @@ class ProfileOnePage extends StatelessWidget {
                     ),
                     child: CircleAvatar(
                       backgroundImage: NetworkImage(
-                          "https://avatars0.githubusercontent.com/u/12619420?s=460&v=4"),
+                          "https://th.bing.com/th/id/R.30b685e211d09036c0a0a60427469748?rik=V3kNzi9WuWUJVA&riu=http%3a%2f%2f5b0988e595225.cdn.sohucs.com%2fimages%2f20190916%2f1f2286619ee14290b29c14ab13077835.jpeg&ehk=0RwXvdox0Avpfwxm%2fN2C%2b6FBOtKN4EnrYfficy3TxUc%3d&risl=&pid=ImgRaw&r=0"),
                       foregroundColor: Colors.black,
                       radius: 30.0,
                     ),
@@ -160,7 +160,7 @@ class ProfileOnePage extends StatelessWidget {
   }
 
   Widget _scaffold() => CommonScaffold(
-    appTitle: "View Profile",
+    appTitle: "learning",
     bodyData: bodyData(),
     showFAB: true,
     showDrawer: true,
