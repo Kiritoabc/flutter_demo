@@ -8,6 +8,7 @@ import 'package:video_player/video_player.dart';
 
 import '../utils/config.dart';
 import '../video_details/movie_details_page.dart';
+import '../video_details/photo_scroller.dart';
 
 // Chewie 的案例
 class ChewieDemo extends StatefulWidget {
@@ -261,7 +262,8 @@ class _ChewieDemoState extends State<ChewieDemo> {
               ),
             ),
             // todo： 让这里可以显示
-            MovieDetailsPage(testMovie),
+            PhotoScroller(testMovie.photoUrls,testMovie.movieUrls),
+            // MovieDetailsPage(testMovie),
           ],
         ),
       ),
