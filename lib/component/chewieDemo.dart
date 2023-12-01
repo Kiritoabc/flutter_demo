@@ -231,20 +231,15 @@ class _ChewieDemoState extends State<ChewieDemo> {
                 ],
               ),
             ),
-            // Expanded(
-            //   flex: 1,
-            //   child:
+            // Container(
+            //   child: MovieDetailsPage(testMovie),
             // ),
-            // Chewie(controller: _chewieController!,),
-            Container(
-              child: MovieDetailsPage(testMovie),
-            ),
-            SizedBox(
+            const SizedBox(
               height:30,
               child: Text(
                   "选集",
                   textAlign:TextAlign.left,
-                  style:const TextStyle(fontSize: 18)
+                  style:TextStyle(fontSize: 18)
               ),
             ),
             SizedBox(
@@ -265,6 +260,8 @@ class _ChewieDemoState extends State<ChewieDemo> {
                   itemBuilder: _getListData
               ),
             ),
+            // todo： 让这里可以显示
+            MovieDetailsPage(testMovie),
           ],
         ),
       ),

@@ -1,7 +1,9 @@
+
 import 'package:flutter/material.dart';
 import 'package:my_app_1/video_details/poster.dart';
 import 'package:my_app_1/video_details/rating_information.dart';
 
+import '../component/chewieDemo.dart';
 import 'arc_banner_image.dart';
 import 'models.dart';
 
@@ -10,29 +12,36 @@ class MovieDetailHeader extends StatelessWidget {
   MovieDetailHeader(this.movie);
   final Movie movie;
 
-  List<Widget> _buildCategoryChips(TextTheme textTheme) {
-    return movie.categories.map((category) {
-      return Padding(
-        padding: const EdgeInsets.only(right: 8.0),
-        child: InkWell(
-          onTap: () {
-            // 在这里添加点击事件处理逻辑
-            print("Play Vide");
-          },
-          child: Chip(
-            label: Text(category),
-            labelStyle: textTheme.caption,
-            backgroundColor: Colors.blue,
-          ),
-        ),
-      );
-    }).toList();
-  }
+
 
 
   @override
   Widget build(BuildContext context) {
     var textTheme = Theme.of(context).textTheme;
+
+    List<Widget> _buildCategoryChips(TextTheme textTheme) {
+      return movie.categories.map((category) {
+        return Padding(
+          padding: const EdgeInsets.only(right: 8.0),
+          child: InkWell(
+            onTap: () {
+              // 在这里添加点击事件处理逻辑
+              print("Play Vide");
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => ChewieDemo(ParentId: 1,title: "hello",)),
+              );
+            },
+            child: Chip(
+              label: Text(category),
+              labelStyle: textTheme.caption,
+              backgroundColor: Colors.blue,
+            ),
+          ),
+        );
+      }).toList();
+    }
+
 
     var movieInformation = Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -47,6 +56,8 @@ class MovieDetailHeader extends StatelessWidget {
         Row(children: _buildCategoryChips(textTheme)),
       ],
     );
+
+
 
     return Stack(
       children: [

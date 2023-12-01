@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:my_app_1/component/chewieDemo.dart';
 import 'package:my_app_1/video_details/photo_scroller.dart';
 import 'package:my_app_1/video_details/story_line.dart';
 
