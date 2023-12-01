@@ -1,7 +1,11 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:my_app_1/utils/dio_util.dart';
+import 'package:my_app_1/video_details/models.dart';
 import 'package:my_app_1/video_details/movie_api.dart';
 import 'package:my_app_1/video_details/movie_details_page.dart';
 
+import '../utils/config.dart';
 import 'chewieDemo.dart';
 
 class VideoInfo extends StatelessWidget {
@@ -16,6 +20,65 @@ class VideoInfo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
+    String MyIp = Config.myIp;
+
+    String minioPort = Config.minioPort;
+
+    String goBackend = Config.goBackend;
+
+    Movie movie = Movie(
+      bannerUrl: 'images/banner.png',
+      posterUrl: 'images/poster.png',
+      title: 'The Secret Life of Pets',
+      rating: 8.0,
+      starRating: 4,
+      categories: ['Play Video', 'Comedy'],
+      storyline: 'For their fifth fully-animated feature-film '
+          'collaboration, Illumination Entertainment and Universal '
+          'Pictures present The Secret Life of Pets, a comedy about '
+          'the lives our...',
+      photoUrls: [
+        'images/1.png',
+        'images/2.png',
+        'images/3.png',
+        'images/4.png',
+      ],
+      movieUrls: [],
+      actors: [
+        Actor(
+          name: 'Louis C.K.',
+          avatarUrl: 'images/louis.png',
+        ),
+        Actor(
+          name: 'Eric Stonestreet',
+          avatarUrl: 'images/eric.png',
+        ),
+        Actor(
+          name: 'Kevin Hart',
+          avatarUrl: 'images/kevin.png',
+        ),
+        Actor(
+          name: 'Jenny Slate',
+          avatarUrl: 'images/jenny.png',
+        ),
+        Actor(
+          name: 'Ellie Kemper',
+          avatarUrl: 'images/ellie.png',
+        ),
+      ],
+    );
+
+    final dio = new Dio();
+
+    void SearchAllVideoList() async {
+      Response response;
+      var formData = FormData.fromMap({
+        'ParentId': ID,
+      });
+      HttpUtils.init();
+      response = await HttpUtils.post('/teachingVideo/getTeachingSonVideoList',data: formData);
+      // todo: 给movie赋值
+    }
     // 跳转记录
     final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
@@ -55,10 +118,11 @@ class VideoInfo extends StatelessWidget {
                               child: IconButton(
                                 icon: Icon(Icons.play_arrow),
                                 onPressed: () {
+                                  SearchAllVideoList();
                                   Navigator.push(
                                     context,
                                     // MaterialPageRoute(builder: (context) => ChewieDemo(ParentId: ID,title: videoName,)),
-                                    MaterialPageRoute(builder: (context) => MovieDetailsPage(testMovie))
+                                    MaterialPageRoute(builder: (context) => MovieDetailsPage(movie))
                                   );
                                   print("hello flutter");
                                 },

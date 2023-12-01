@@ -14,14 +14,21 @@ class MovieDetailHeader extends StatelessWidget {
     return movie.categories.map((category) {
       return Padding(
         padding: const EdgeInsets.only(right: 8.0),
-        child: Chip(
-          label: Text(category),
-          labelStyle: textTheme.caption,
-          backgroundColor: Colors.black12,
+        child: InkWell(
+          onTap: () {
+            // 在这里添加点击事件处理逻辑
+            print("Play Vide");
+          },
+          child: Chip(
+            label: Text(category),
+            labelStyle: textTheme.caption,
+            backgroundColor: Colors.blue,
+          ),
         ),
       );
     }).toList();
   }
+
 
   @override
   Widget build(BuildContext context) {

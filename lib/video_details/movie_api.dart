@@ -38,5 +38,5 @@ final Movie testMovie = Movie(
       name: 'Ellie Kemper',
       avatarUrl: 'images/ellie.png',
     ),
-  ],
+  ], movieUrls: [],
 );

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
 class PhotoScroller extends StatelessWidget {
-  PhotoScroller(this.photoUrls);
+  PhotoScroller(this.photoUrls, this.movieUrls);
   final List<String> photoUrls;
+  final List<String> movieUrls;
 
   Widget _buildPhoto(BuildContext context, int index) {
     var photo = photoUrls[index];

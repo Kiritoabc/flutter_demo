@@ -3,9 +3,11 @@ import 'package:dio/dio.dart';
 import 'package:my_app_1/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:my_app_1/utils/dio_util.dart';
+import 'package:my_app_1/video_details/movie_api.dart';
 import 'package:video_player/video_player.dart';
 
 import '../utils/config.dart';
+import '../video_details/movie_details_page.dart';
 
 // Chewie 的案例
 class ChewieDemo extends StatefulWidget {
@@ -234,6 +236,9 @@ class _ChewieDemoState extends State<ChewieDemo> {
             //   child:
             // ),
             // Chewie(controller: _chewieController!,),
+            Container(
+              child: MovieDetailsPage(testMovie),
+            ),
             SizedBox(
               height:30,
               child: Text(

@@ -8,6 +8,7 @@ class Movie {
     required this.categories,
     required this.storyline,
     required this.photoUrls,
+    required this.movieUrls,
     required this.actors,
   });
 
@@ -19,6 +20,7 @@ class Movie {
   final List<String> categories;
   final String storyline;
   final List<String> photoUrls;
+  final List<String> movieUrls;
   final List<Actor> actors;
 }
 
