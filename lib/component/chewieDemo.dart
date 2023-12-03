@@ -7,6 +7,7 @@ import 'package:my_app_1/video_details/movie_api.dart';
 import 'package:video_player/video_player.dart';
 
 import '../utils/config.dart';
+import '../video_details/movie_detail_header.dart';
 import '../video_details/movie_details_page.dart';
 import '../video_details/photo_scroller.dart';
 
@@ -181,6 +182,29 @@ class _ChewieDemoState extends State<ChewieDemo> {
     );
   }
 
+  Widget _buildPhoto(BuildContext context, int index) {
+    var photo = testMovie.photoUrls[index];
+
+    return Padding(
+      padding: const EdgeInsets.only(right: 16.0),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(4.0),
+        child: InkWell(
+          child: Image.asset(
+            photo,
+            width: 160.0,
+            height: 120.0,
+            fit: BoxFit.cover,
+          ),
+          onTap: () {
+            print("更换视频");
+            _updateCurrPlayIndex(index);
+          },
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -243,26 +267,46 @@ class _ChewieDemoState extends State<ChewieDemo> {
                   style:TextStyle(fontSize: 18)
               ),
             ),
-            SizedBox(
-              height: 35, // 根据需要设置高度
-              child: GridView.builder(
-                // 定义网格相关样式
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    // 定义列
-                    crossAxisCount: 4,
-                    // 横向间隙
-                    mainAxisSpacing: 5.0,
-                    // 纵向间隙
-                    crossAxisSpacing: 5.0,
-                  ),
-                  // 数据数量
-                  itemCount: myListData.length,
-                  // 所有数据
-                  itemBuilder: _getListData
-              ),
-            ),
+            // SizedBox(
+            //   height: 35, // 根据需要设置高度
+            //   child: GridView.builder(
+            //     // 定义网格相关样式
+            //       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            //         // 定义列
+            //         crossAxisCount: 4,
+            //         // 横向间隙
+            //         mainAxisSpacing: 5.0,
+            //         // 纵向间隙
+            //         crossAxisSpacing: 5.0,
+            //       ),
+            //       // 数据数量
+            //       itemCount: myListData.length,
+            //       // 所有数据
+            //       itemBuilder: _getListData
+            //   ),
+            // ),
             // todo： 让这里可以显示
-            PhotoScroller(testMovie.photoUrls,testMovie.movieUrls),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                child: Text(
+                  'Episode',
+                  style: TextStyle(fontSize: 18.0),
+                ),
+              ),
+              SizedBox.fromSize(
+                size: const Size.fromHeight(100.0),
+                child: ListView.builder(
+                  itemCount: testMovie.photoUrls.length,
+                  scrollDirection: Axis.horizontal,
+                  padding: const EdgeInsets.only(top: 8.0, left: 20.0),
+                  itemBuilder: _buildPhoto,
+                ),
+              ),
+            ],
+          ),
             // MovieDetailsPage(testMovie),
           ],
         ),

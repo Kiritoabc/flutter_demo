@@ -7,6 +7,7 @@ import '../../../component/already_have_an_account_acheck.dart';
 import '../../../constants.dart';
 import '../../../layout/layout.dart';
 import '../../Signup/signup_screen.dart';
+import '../../model/User.dart';
 import '../../user.dart';
 
 class LoginForm extends StatelessWidget {
@@ -75,10 +76,34 @@ class LoginForm extends StatelessWidget {
                       textColor: Colors.blue,
                       fontSize: 16.0
                   );
+                  print(res.data['data']);
+                  //{user: {ID: 1,
+                  //        CreatedAt: 2023-11-09T09:32:04.536+08:00,
+                  //        UpdatedAt: 2023-11-09T09:32:04.536+08:00,
+                  //        uuid: d3fd1a74-15d1-4990-99cc-fc1073d29ba8,
+                  //        userName: kirito,
+                  //        password: $2a$10$31wawQLGbBBT.Tls.5Tkce5F1sJawjcfqwwbPiEBuXw/8qXrPyQsa,
+                  //        nickName: 系统用户,
+                  //        headerImg: https://ts1.cn.mm.bing.net/th/id/R-C.e3506e1ab5441c8c9c43facfba9ff1ab?rik=JKbGTz1jQYhGuA&riu=http%3a%2f%2fwww.gx8899.com%2fuploads%2fallimg%2f2018031109%2fqzfrr5ly3af.jpg&ehk=izdYHSNuzDYZQF2HdyA6xZ3Jgz5lXaj%2faZHquTh2FvU%3d&risl=&pid=ImgRaw&r=0&sres=1&sresct=1,
+                  //        phone: ,
+                  //        email: ,
+                  //        enable: 1,
+                  //        role: 1
+                  //        }
+                  // }
+                  User user = User(
+                      ID: res.data['data']['user']['ID'],
+                      userName: res.data['data']['user']['userName'],
+                      nickName: res.data['data']['user']['userName'],
+                      headerImg: res.data['data']['user']['headerImg'],
+                      phone: res.data['data']['user']['phone'],
+                      email: res.data['data']['user']['email'],
+                  );
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => MyLayout(title: 'Chinese Learning App',isLogin: true)
+                      // 跳转到Layout，
+                        builder: (context) => MyLayout(title: 'Chinese Learning App',userName:_usernameController.text)
                     )
                   );
                 }

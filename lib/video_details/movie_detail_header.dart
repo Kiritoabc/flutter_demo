@@ -29,7 +29,7 @@ class MovieDetailHeader extends StatelessWidget {
               print("Play Vide");
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => ChewieDemo(ParentId: 1,title: "hello",)),
+                MaterialPageRoute(builder: (context) => ChewieDemo(ParentId: movie.ParentId,title: movie.title,)),
               );
             },
             child: Chip(

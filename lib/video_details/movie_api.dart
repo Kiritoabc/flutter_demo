@@ -4,6 +4,7 @@ final Movie testMovie = Movie(
   bannerUrl: 'images/banner.png',
   posterUrl: 'images/poster.png',
   title: 'The Secret Life of Pets',
+  ParentId: 1,
   rating: 8.0,
   starRating: 4,
   categories: ['Animation', 'Comedy'],

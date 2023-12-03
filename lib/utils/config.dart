@@ -1,5 +1,5 @@
 class Config {
-  static const String myIp = "http://10.108.17.82";
+  static const String myIp = "http://172.28.240.1";
 
   static const String minioPort = ":9001";
 

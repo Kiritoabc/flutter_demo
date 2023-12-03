@@ -10,11 +10,13 @@ class Movie {
     required this.photoUrls,
     required this.movieUrls,
     required this.actors,
+    required  this.ParentId,
   });
 
   final String bannerUrl;
   final String posterUrl;
   final String title;
+  final int ParentId;
   final double rating;
   final int starRating;
   final List<String> categories;

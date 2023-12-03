@@ -13,9 +13,9 @@ import '../video_details/movie_details_page.dart';
 
 
 class MyLayout extends StatefulWidget{
-  MyLayout({super.key,required this.title,this.isLogin=false});
+  MyLayout({super.key,required this.title, required this.userName,});
   final String title;
-  final isLogin ;
+  final String userName ;
   @override
   State<StatefulWidget> createState() => _MyLayoutState();
 }
