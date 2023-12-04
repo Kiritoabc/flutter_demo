@@ -28,15 +28,14 @@ class VideoInfo extends StatelessWidget {
 
 
     final dio = new Dio();
-
-    void SearchAllVideoList() async {
+    Future<Response> SearchAllVideoList() async {
       Response response;
       var formData = FormData.fromMap({
         'ParentId': ID,
       });
       HttpUtils.init();
       response = await HttpUtils.post('/teachingVideo/getTeachingSonVideoList',data: formData);
-      // todo: 给movie赋值
+      return response;
     }
     // 跳转记录
     final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
@@ -77,7 +76,8 @@ class VideoInfo extends StatelessWidget {
                               child: IconButton(
                                 icon: Icon(Icons.play_arrow),
                                 onPressed: () {
-                                  SearchAllVideoList();
+                                  Response res = SearchAllVideoList() as Response;
+                                  // todo: 给movie赋值
                                   Movie movie = Movie(
                                     bannerUrl: 'images/banner.png',
                                     posterUrl: 'images/poster.png',

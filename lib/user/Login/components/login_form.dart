@@ -103,7 +103,7 @@ class LoginForm extends StatelessWidget {
                     context,
                     MaterialPageRoute(
                       // 跳转到Layout，
-                        builder: (context) => MyLayout(title: 'Chinese Learning App',userName:_usernameController.text)
+                        builder: (context) => MyLayout(title: 'Chinese Learning App',user: user,)
                     )
                   );
                 }

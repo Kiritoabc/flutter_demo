@@ -3,8 +3,12 @@ import 'package:flutter/material.dart';
 import '../Widgets/common_divider.dart';
 import '../Widgets/common_scaffold.dart';
 import '../Widgets/profile_tile.dart';
+import '../model/User.dart';
 
 class ProfileOnePage extends StatelessWidget {
+  ProfileOnePage(this.user);
+  final User user;
+
   var deviceSize;
 
   //Column1
@@ -18,8 +22,8 @@ class ProfileOnePage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
             ProfileTile(
-              title: "菠萝",
-              subtitle: "Developer",
+              title: user.userName,
+              subtitle: user.nickName == ""? user.userName:user.nickName,
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
@@ -41,8 +45,7 @@ class ProfileOnePage extends StatelessWidget {
                       ),
                     ),
                     child: CircleAvatar(
-                      backgroundImage: NetworkImage(
-                          "https://th.bing.com/th/id/R.30b685e211d09036c0a0a60427469748?rik=V3kNzi9WuWUJVA&riu=http%3a%2f%2f5b0988e595225.cdn.sohucs.com%2fimages%2f20190916%2f1f2286619ee14290b29c14ab13077835.jpeg&ehk=0RwXvdox0Avpfwxm%2fN2C%2b6FBOtKN4EnrYfficy3TxUc%3d&risl=&pid=ImgRaw&r=0"),
+                      backgroundImage: NetworkImage(user.headerImg),
                       foregroundColor: Colors.black,
                       radius: 30.0,
                     ),
@@ -62,6 +65,30 @@ class ProfileOnePage extends StatelessWidget {
   );
 
   //column2
+  Widget followColumn(Size deviceSize) => Container(
+    height: deviceSize.height * 0.13,
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: <Widget>[
+        ProfileTile(
+          title: "1.5K",
+          subtitle: "Posts",
+        ),
+        ProfileTile(
+          title: "2.5K",
+          subtitle: "Followers",
+        ),
+        ProfileTile(
+          title: "10K",
+          subtitle: "Comments",
+        ),
+        ProfileTile(
+          title: "1.2K",
+          subtitle: "Following",
+        )
+      ],
+    ),
+  );
 
   //column3
   Widget descColumn() => Container(
@@ -174,27 +201,3 @@ class ProfileOnePage extends StatelessWidget {
   }
 }
 
-Widget followColumn(Size deviceSize) => Container(
-  height: deviceSize.height * 0.13,
-  child: Row(
-    mainAxisAlignment: MainAxisAlignment.spaceAround,
-    children: <Widget>[
-      ProfileTile(
-        title: "1.5K",
-        subtitle: "Posts",
-      ),
-      ProfileTile(
-        title: "2.5K",
-        subtitle: "Followers",
-      ),
-      ProfileTile(
-        title: "10K",
-        subtitle: "Comments",
-      ),
-      ProfileTile(
-        title: "1.2K",
-        subtitle: "Following",
-      )
-    ],
-  ),
-);

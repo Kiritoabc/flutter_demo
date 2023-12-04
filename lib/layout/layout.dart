@@ -4,6 +4,7 @@ import 'package:my_app_1/user/user.dart';
 import 'package:my_app_1/amusement/amusement.dart';
 
 import '../user/Profile/profileHomePage.dart';
+import '../user/model/User.dart';
 import '../utils/tabBar/CircularBottomNavigation.dart';
 import '../utils/tabBar/TabItem.dart';
 import '../video_details/movie_api.dart';
@@ -13,9 +14,9 @@ import '../video_details/movie_details_page.dart';
 
 
 class MyLayout extends StatefulWidget{
-  MyLayout({super.key,required this.title, required this.userName,});
+  MyLayout({super.key,required this.title, required this.user,});
   final String title;
-  final String userName ;
+  final User user;
   @override
   State<StatefulWidget> createState() => _MyLayoutState();
 }
@@ -45,7 +46,7 @@ class _MyLayoutState extends State<MyLayout> {
   void initState() {
     super.initState();
     // _bottomNavPages..add(const PageHome(title: '首页',))..add(const PageAmusement(title: '娱乐',))..add(PageUser(title: '我的',isLogin: widget.isLogin,));
-    _bottomNavPages..add(const PageHome(title: '首页',))..add(const PageAmusement(title: '娱乐',))..add(ProfileOnePage());
+    _bottomNavPages..add(const PageHome(title: '首页',))..add(const PageAmusement(title: '娱乐',))..add(ProfileOnePage(widget.user));
   }
 
   @override
