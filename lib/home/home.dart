@@ -30,14 +30,6 @@ class _PageHomeState extends State<PageHome> {
   // Dio 发送请求
   final dio = new Dio();
 
-  // 接受Dio的数据
-  // {
-  //    videoName: 1,
-  //    videoIconUrl: /test/12.jpg,
-  //    number: 3,
-  //    content: 测试1,
-  //    ID: 1
-  // }
   List myListData = [];
   int total = 0;
   //
@@ -68,31 +60,6 @@ class _PageHomeState extends State<PageHome> {
     // 返回
     return Column(
         children: [
-          // 搜索功能暂时不支持
-          // Stack(
-          //   children: [
-          //     TextField(
-          //       controller: _searchController,
-          //       decoration: const InputDecoration(
-          //         contentPadding: EdgeInsets.only(left: 20),
-          //         hintText: '请输入搜索关键词',
-          //       ),
-          //     ),
-          //     Positioned(
-          //       right: 4,
-          //       bottom: 2,
-          //       child: ElevatedButton(
-          //         onPressed: () {
-          //           // 在这里处理搜索逻辑
-          //           String searchKeyword = _searchController.text;
-          //           // 在这里处理搜索逻辑，使用searchKeyword作为搜索关键词
-          //           print('搜索关键词： ${searchKeyword}');
-          //         },
-          //         child: const Text('搜索'),
-          //       ),
-          //     )
-          //   ],
-          // ),
           Expanded(
             child: ListView.builder(
                 itemCount: total,

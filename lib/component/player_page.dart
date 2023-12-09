@@ -19,15 +19,15 @@ class PlayerPage extends StatefulWidget {
 class _PlayerPage extends State<PlayerPage> {
   final FijkPlayer player = FijkPlayer();
 
+
   // todo： bilibili 视频播放器
   @override
   void initState() {
     super.initState();
     print("bilibili视频播放器");
     player.setDataSource(
-      // "http://172.24.240.1:9001/test/测试.mp4",
-      'http://172.24.240.1:9001/test/amusement-测试12023-09-26 14-08-23.mp4',
-      autoPlay: true);
+        widget.videoUrl,
+        autoPlay: true);
   }
 
   @override

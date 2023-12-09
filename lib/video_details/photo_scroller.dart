@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../component/player_page.dart';
+
 class PhotoScroller extends StatelessWidget {
   PhotoScroller(this.photoUrls, this.movieUrls);
   final List<String> photoUrls;
@@ -7,7 +9,7 @@ class PhotoScroller extends StatelessWidget {
 
   Widget _buildPhoto(BuildContext context, int index) {
     var photo = photoUrls[index];
-
+    var movieUrl = movieUrls[index];
     return Padding(
       padding: const EdgeInsets.only(right: 16.0),
       child: ClipRRect(
@@ -28,7 +30,11 @@ class PhotoScroller extends StatelessWidget {
                   icon: Icon(Icons.play_circle),
                   onPressed: () {
                     print("更换视频");
-                    // _updateCurrPlayIndex(index);
+                    // todo: 修改b站播放器
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => PlayerPage(videoUrl: movieUrl,))
+                    );
                   },
                 ),
               ),

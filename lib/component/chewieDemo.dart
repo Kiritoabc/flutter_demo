@@ -1,16 +1,11 @@
 import 'package:chewie/chewie.dart';
 import 'package:dio/dio.dart';
-import 'package:my_app_1/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:my_app_1/utils/dio_util.dart';
-import 'package:my_app_1/video_details/movie_api.dart';
 import 'package:video_player/video_player.dart';
 
 import '../utils/config.dart';
 import '../video_details/models.dart';
-import '../video_details/movie_detail_header.dart';
-import '../video_details/movie_details_page.dart';
-import '../video_details/photo_scroller.dart';
 
 // Chewie 的案例
 class ChewieDemo extends StatefulWidget {
@@ -124,7 +119,6 @@ class _ChewieDemoState extends State<ChewieDemo> {
           ),
         ];
       },
-      // subtitle: Subtitles(subtitles),
       subtitleBuilder: (context, dynamic subtitle) => Container(
         padding: const EdgeInsets.all(10.0),
         child: subtitle is InlineSpan
@@ -146,44 +140,6 @@ class _ChewieDemoState extends State<ChewieDemo> {
     currPlayIndex += 1;
     await initializePlayer();
   }
-
-  Widget _getListData(context,index){
-    return Container(
-      height: 30,
-      decoration: BoxDecoration(
-        // 边框
-          border:Border.all(
-            // 颜色
-              color:const Color.fromRGBO(233, 233, 233, 0.8),
-              // 边框宽度
-              width:1.0
-          )
-      ),
-      child: Column(
-            // 子元素
-            children: <Widget>[
-              // 图片
-              InkWell(
-                child: SizedBox(
-                  // 文字
-                  child:  Text(
-                      '第'+myListData[index]['episode'].toString()+'集',
-                      textAlign:TextAlign.center,
-                    style: index == currPlayIndex
-                        ? const TextStyle(fontSize: 18, color: Colors.blue)
-                        : const TextStyle(fontSize: 18),
-                  ),
-                ),
-                onTap: (){
-                  print("更换视频");
-                  _updateCurrPlayIndex(index);
-                },
-              ),
-            ],
-          ),
-    );
-  }
-
   Widget _buildPhoto(BuildContext context, int index) {
     var photo = widget.movie.photoUrls[index];
     return Padding(
@@ -216,8 +172,6 @@ class _ChewieDemoState extends State<ChewieDemo> {
       ),
     );
   }
-
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -277,25 +231,6 @@ class _ChewieDemoState extends State<ChewieDemo> {
                   style:TextStyle(fontSize: 18)
               ),
             ),
-            // SizedBox(
-            //   height: 35, // 根据需要设置高度
-            //   child: GridView.builder(
-            //     // 定义网格相关样式
-            //       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            //         // 定义列
-            //         crossAxisCount: 4,
-            //         // 横向间隙
-            //         mainAxisSpacing: 5.0,
-            //         // 纵向间隙
-            //         crossAxisSpacing: 5.0,
-            //       ),
-            //       // 数据数量
-            //       itemCount: myListData.length,
-            //       // 所有数据
-            //       itemBuilder: _getListData
-            //   ),
-            // ),
-            // todo： 让这里可以显示
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -317,7 +252,6 @@ class _ChewieDemoState extends State<ChewieDemo> {
               ),
             ],
           ),
-            // MovieDetailsPage(testMovie),
           ],
         ),
       ),
