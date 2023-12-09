@@ -7,6 +7,7 @@ import 'package:my_app_1/video_details/movie_api.dart';
 import 'package:video_player/video_player.dart';
 
 import '../utils/config.dart';
+import '../video_details/models.dart';
 import '../video_details/movie_detail_header.dart';
 import '../video_details/movie_details_page.dart';
 import '../video_details/photo_scroller.dart';
@@ -15,11 +16,12 @@ import '../video_details/photo_scroller.dart';
 class ChewieDemo extends StatefulWidget {
   const ChewieDemo({
     Key? key,
-    this.title = 'Chewie Demo', required this.ParentId,
+    this.title = 'Chewie Demo', required this.ParentId, required this.movie,
   }) : super(key: key);
 
   final String title;
   final int ParentId;
+  final Movie movie;
 
   @override
   State<StatefulWidget> createState() {
@@ -183,27 +185,38 @@ class _ChewieDemoState extends State<ChewieDemo> {
   }
 
   Widget _buildPhoto(BuildContext context, int index) {
-    var photo = testMovie.photoUrls[index];
-
+    var photo = widget.movie.photoUrls[index];
     return Padding(
       padding: const EdgeInsets.only(right: 16.0),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(4.0),
         child: InkWell(
-          child: Image.asset(
-            photo,
-            width: 160.0,
-            height: 120.0,
-            fit: BoxFit.cover,
+          child: Stack(
+            children: [
+              Image.network(
+                photo,
+                width: 160.0,
+                height: 120.0,
+                fit: BoxFit.cover,
+              ),
+              Positioned(
+                top: 0,
+                right: 0,
+                child: IconButton(
+                  icon: Icon(Icons.play_circle),
+                  onPressed: () {
+                    print("更换视频");
+                    _updateCurrPlayIndex(index);
+                  },
+                ),
+              ),
+            ],
           ),
-          onTap: () {
-            print("更换视频");
-            _updateCurrPlayIndex(index);
-          },
         ),
       ),
     );
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -256,9 +269,6 @@ class _ChewieDemoState extends State<ChewieDemo> {
                 ],
               ),
             ),
-            // Container(
-            //   child: MovieDetailsPage(testMovie),
-            // ),
             const SizedBox(
               height:30,
               child: Text(
@@ -299,7 +309,7 @@ class _ChewieDemoState extends State<ChewieDemo> {
               SizedBox.fromSize(
                 size: const Size.fromHeight(100.0),
                 child: ListView.builder(
-                  itemCount: testMovie.photoUrls.length,
+                  itemCount: widget.movie.photoUrls.length,
                   scrollDirection: Axis.horizontal,
                   padding: const EdgeInsets.only(top: 8.0, left: 20.0),
                   itemBuilder: _buildPhoto,

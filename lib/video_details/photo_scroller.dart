@@ -13,15 +13,27 @@ class PhotoScroller extends StatelessWidget {
       child: ClipRRect(
         borderRadius: BorderRadius.circular(4.0),
         child: InkWell(
-          child: Image.asset(
-            photo,
-            width: 160.0,
-            height: 120.0,
-            fit: BoxFit.cover,
+          child: Stack(
+            children: [
+              Image.network(
+                photo,
+                width: 160.0,
+                height: 120.0,
+                fit: BoxFit.cover,
+              ),
+              Positioned(
+                top: 0,
+                right: 0,
+                child: IconButton(
+                  icon: Icon(Icons.play_circle),
+                  onPressed: () {
+                    print("更换视频");
+                    // _updateCurrPlayIndex(index);
+                  },
+                ),
+              ),
+            ],
           ),
-          onTap: () {
-            print("更换视频");
-          },
         ),
       ),
     );

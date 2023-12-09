@@ -30,7 +30,6 @@ class _PageViewExampleState extends State<PageViewExampleApp> {
   //      ],
   //    total: 2
   //  }
-
   // 发送请求
   Future<void> GetAmusementVideo() async {
     Response response;

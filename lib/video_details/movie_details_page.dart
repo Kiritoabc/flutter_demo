@@ -42,7 +42,7 @@ class MovieDetailsPage extends StatelessWidget {
             ),
             PhotoScroller(movie.photoUrls,movie.movieUrls),
             SizedBox(height: 20.0),
-            ActorScroller(movie.actors),
+            // ActorScroller(movie.actors),
             SizedBox(height: 50.0),
           ],
         ),

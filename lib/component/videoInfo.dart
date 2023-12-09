@@ -75,26 +75,19 @@ class VideoInfo extends StatelessWidget {
                             child: InkWell(
                               child: IconButton(
                                 icon: Icon(Icons.play_arrow),
-                                onPressed: () {
-                                  Response res = SearchAllVideoList() as Response;
+                                onPressed: () async {
+                                  Response res = await SearchAllVideoList() ;
+                                  List<dynamic> dataList = res.data['data']['list'];
                                   // todo: 给movie赋值
                                   Movie movie = Movie(
-                                    bannerUrl: 'images/banner.png',
-                                    posterUrl: 'images/poster.png',
+                                    bannerUrl: videoIconUrl,
+                                    posterUrl: videoIconUrl,
                                     title: videoName,
                                     rating: 8.0,
                                     starRating: 4,
                                     categories: ['Play Video', 'Comedy'],
-                                    storyline: 'For their fifth fully-animated feature-film '
-                                        'collaboration, Illumination Entertainment and Universal '
-                                        'Pictures present The Secret Life of Pets, a comedy about '
-                                        'the lives our...',
-                                    photoUrls: [
-                                      'images/1.png',
-                                      'images/2.png',
-                                      'images/3.png',
-                                      'images/4.png',
-                                    ],
+                                    storyline: res.data['data']['list'][0]['content'],
+                                    photoUrls: [],
                                     movieUrls: [],
                                     actors: [
                                       Actor(
@@ -119,6 +112,11 @@ class VideoInfo extends StatelessWidget {
                                       ),
                                     ], ParentId: ID,
                                   );
+                                  // 添加 photoUrls,movieUrls赋值
+                                  for(int i = 0; i < dataList.length; i++) {
+                                    movie.photoUrls.add(MyIp + minioPort+ dataList[i]['videoIcon']);
+                                    movie.movieUrls.add(MyIp + minioPort + dataList[i]['videoUrl']);
+                                  }
                                   Navigator.push(
                                     context,
                                     // MaterialPageRoute(builder: (context) => ChewieDemo(ParentId: ID,title: videoName,)),

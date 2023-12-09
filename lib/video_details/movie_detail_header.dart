@@ -29,7 +29,7 @@ class MovieDetailHeader extends StatelessWidget {
               print("Play Vide");
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => ChewieDemo(ParentId: movie.ParentId,title: movie.title,)),
+                MaterialPageRoute(builder: (context) => ChewieDemo(ParentId: movie.ParentId,title: movie.title,movie: movie,)),
               );
             },
             child: Chip(
@@ -63,7 +63,8 @@ class MovieDetailHeader extends StatelessWidget {
       children: [
         Padding(
           padding: const EdgeInsets.only(bottom: 140.0),
-          child: ArcBannerImage(movie.bannerUrl),
+          // child: ArcBannerImage(movie.bannerUrl),
+          child: Image.network(movie.bannerUrl),
         ),
         Positioned(
           bottom: 0.0,
